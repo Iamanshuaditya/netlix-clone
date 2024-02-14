@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "netflix-clone-c71e9",
+  "private_key_id": "237b7f4779a76a270871e54ba0ca579b6b1692b9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCQ2Ftd1RBH5j53\nmHOXNYc/+AOEIA7YH8QqqzV30IKvEA7jKjJX6hlBCVY0ZeqpymPNstFJsg2PF824\nZN3KKlZ9+oPjCcG5RmoyGa4ngsuFcJWzmqdvOy4ezDy6OSXiiRzr5XvU42g/qE2T\n00HfZ3uMGFdxQMRn4DYdicmeAzYb86glXMSDQ8VJXFWP3rCnc8HnpD9tHDAHYX2D\nZswGU5MjHCs2cKlgr78L/HtlL0Xa4kJjjgqCMfDsgfmtXXeeromDl5CEUTh3ReVV\nVdqm881RzIwwEuNUcm2rcD/UTcfplrmiURzaefMWpXmmuj//234S53fvns23MgIH\ny3u2MUjhAgMBAAECggEAEPlJu7U8MzDIITu8T/v13Yky4EjhdHJEiruFiITmy50W\nIYjQXX0ReI2fjIRk+4C8MV7DJ9+1tw8TDIjFdOuBN0IkMnbyPMQDrdtUjUzGjNyk\nrmdxN5e3z+QfObN4vRNUUFCUMl5z2QHgFXKsRYHa+I/hr2PnoESmEtAS0HGP5bZ6\n2Ymiv+ft7R9I541VP3cFMx8TcQb9Sj1ej6kfztXsdeWUq5+SGsgCYjUgssXQpHIr\nBxBnac1r6vF8qXJ0KN7bih9lJN2FYSe2Xx+UoD4PgpJGUscQwHPMO5IPhH1HAAvH\nSJpp9eyz3k6bCKqq3TFtQNVCgXgm2LuGh05qd2dYAQKBgQDEse0VkSlvg99icR2r\nl3OOrYmYZ+3oBsJsb1d9anzKK78OFGo67chZqUGHruzPc8GPeJyI1fzZfoChKTmC\nf/WTQjYUwjCmiQKUXXs+IL5sc2lEFYvC/kHjiNl1lBEZAYVPqw2or2urVVi1541T\nDNfz4vlmVbblDi8F+67bWX9dewKBgQC8hFp5S1jOq3KdjxRTkbmlBbHme8Q0OmY9\ncauXaPs1X0ux5IzoPLM5T9AwP6R7ZOaVRtQ5VRzmnhd+BLQJiuN7ShU9v+ex+Y9V\nAcnz/y+FHUL8M655r6NRFume1STVZU8JSVcaBgie2tFA1nO9wQEO6XI5YHvl9syb\n8/JvGffOUwKBgDLnnWUkgWXD6k8u2S/sbVKypNaVpyOShETN+AWURqGH+tUpAWko\n2t4hiL0Vz2HNIn4AB/r97odXTvDmm2SjuymWTCrJKxAei1VccCXfEYk9wTOGo/oe\nFW1OoIDmhhpDo32/1jQe2i2oU+IYACJLQ6RxzHvomQHkztSsk09fdS/7AoGBALmJ\nddYNHyGAwfRqHnJFaTYOTdHvG+LfW0K7/kqtixgzazdxHnFvVGFiuR7TdFnxq7Nd\nm3+10hTzoWFo1ZzSsiLkfdVha3LRkIz0jsPy8t0LOKMpZl3jTFSBvXqSgob4B3q3\nUN+O8qsN54btycoHC7iWb9IisK5bYXNX+9H299p7AoGAXR5mLQn/ivl78nkit12j\npiP2g1QlKwOO2vL9KfdnO34YLIlVjOeCBjCDIgIrVPkZzfwe47QZTYxmkTsj4TFw\n/8U0p+KuOWyrDE4sHndN4QMYhGcbfapr3OFv5ZPFNDiU71ENHXZ8t6Z3CjJ+KOj+\nG2kvKFzfcEWzEnP87nG6zi8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-jppme@netflix-clone-c71e9.iam.gserviceaccount.com",
+  "client_id": "114283667344236216329",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-jppme%40netflix-clone-c71e9.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
