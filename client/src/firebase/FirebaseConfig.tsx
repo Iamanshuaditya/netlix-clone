@@ -20,7 +20,7 @@ const auth: Auth = getAuth(app);
 
 setPersistence(auth, browserLocalPersistence)
   .then(() => {
-    console.log("Firebase local persistence enabled");
+    // console.log("Firebase local persistence enabled");
   })
   .catch((error) => {
     console.error("Error setting local persistence:", error);

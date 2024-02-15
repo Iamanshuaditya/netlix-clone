@@ -7,7 +7,7 @@ function Footer() {
   return (
     <>
       <footer
-        className="relative bottom-0 w-full text-[#a3a3a3] grid items-start gap-4 mt-[50em] top-[50em] xl:top-[120em] xl:text-3xl xl:w-[40em] xl:gap-8
+        className="relative bottom-0 w-full text-[#a3a3a3] grid items-start gap-4   xl:mt-96 top-[50em] xl:top-[160em] xl:text-3xl xl:w-[40em] xl:gap-8
       "
       >
         <div className="grid grid-cols-8 text-white items-start w-[22em] xl:w-[27em] xl:grid-cols-4  gap-6 mb-3 maxWidth:justify-normal maxWidth:ml-[10%] xl:gap-12">

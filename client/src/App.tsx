@@ -11,9 +11,10 @@ import { useEffect, useState } from "react";
 import Account from "./components/Account";
 import HelpCenter from "./_root/pages/HelpCenter";
 import TvShow from "./_root/pages/TvShow";
-import Movies from "./components/Movies";
+
 import NewPopular from "./_root/pages/New-Popular";
 import MyList from "./_root/pages/My-List";
+import MoviesPage from "./_root/pages/MoviesPage";
 
 function App() {
   const [storedEmail, setStoredEmail] = useState<string | null>(null);
@@ -61,7 +62,7 @@ function App() {
                 <Route path="/account" element={<Account />} />
                 <Route path="/help-centers" element={<HelpCenter />} />
                 <Route path="/tv-shows" element={<TvShow />} />
-                <Route path="/movies" element={<Movies />} />
+                <Route path="/movies" element={<MoviesPage />} />
                 <Route path="/new-and-popular" element={<NewPopular />} />
                 my-list
                 <Route path="/my-list" element={<MyList />} />
