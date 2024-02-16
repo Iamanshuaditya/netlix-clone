@@ -10,6 +10,8 @@ interface Movie {
   backdrop_path: string;
 }
 
+const api_key = import.meta.env.VITE_TMDB_API;
+
 function TvShows() {
   const setTrendingTvShow = useSetRecoilState(trendingshows);
   const setTopRatedTvShow = useSetRecoilState(topRatedTvShows);
@@ -28,19 +30,19 @@ function TvShows() {
           documentaryResponse,
         ] = await Promise.all([
           axios.get(
-            "https://api.themoviedb.org/3/trending/tv/day?api_key=b5567485072637e740f970c66c1c9c8c"
+            `https://api.themoviedb.org/3/trending/tv/day?api_key=${api_key}`
           ),
           axios.get(
-            "https://api.themoviedb.org/3/tv/top_rated?api_key=b5567485072637e740f970c66c1c9c8c"
+            `https://api.themoviedb.org/3/tv/top_rated?api_key=${api_key}`
           ),
           axios.get(
-            "https://api.themoviedb.org/3/discover/tv?api_key=b5567485072637e740f970c66c1c9c8c&with_genres=35"
+            `https://api.themoviedb.org/3/discover/tv?api_key=${api_key}&with_genres=35`
           ),
           axios.get(
-            "https://api.themoviedb.org/3/discover/tv?api_key=b5567485072637e740f970c66c1c9c8c&with_genres=37"
+            `https://api.themoviedb.org/3/discover/tv?api_key=${api_key}&with_genres=37`
           ),
           axios.get(
-            "https://api.themoviedb.org/3/discover/tv?api_key=b5567485072637e740f970c66c1c9c8c&with_genres=99"
+            `https://api.themoviedb.org/3/discover/tv?api_key=${api_key}&with_genres=99`
           ),
         ]);
         const processResponse = (response: AxiosResponse) => {
