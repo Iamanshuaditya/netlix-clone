@@ -3,7 +3,7 @@ import { atom } from "recoil";
 const initialMoviesState: string[] = [];
 
 const ComediesState = atom<string[]>({
-  key: "ComediesState",
+  key: "Comedies",
   default: initialMoviesState,
 });
 

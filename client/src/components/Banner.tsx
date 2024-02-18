@@ -1,30 +1,50 @@
+import Overview from "@/store/atoms/Banner/Overview";
+import Poster from "@/store/atoms/Banner/Poster";
+import ReleaseDate from "@/store/atoms/Banner/ReleaseDate";
+import RandomTitle from "@/store/atoms/Banner/Title";
+import RandomBanner from "@/utlis/RandomBanner";
+
 import { FaPlay } from "react-icons/fa";
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import { useRecoilValue } from "recoil";
 
 function Banner() {
+  const Match = () => {
+    const num = Math.floor(100 * Math.random()) + 1;
+    return num;
+  };
+
+  const title = useRecoilValue(RandomTitle);
+  const banner = useRecoilValue(Poster);
+  const releseDate = useRecoilValue(ReleaseDate);
+  const overview = useRecoilValue(Overview);
+
   return (
-    <div className="relative top-0">
+    <div className="relative top-0 ">
+      <RandomBanner />
       <div className="relative top-[-33em] overflow-hidden object-cover  xl:w-[400%] ">
         <div
-          className="opacity-10 bg-no-repeat h-[100em] xl:h-[158em] "
+          className="opacity-20 w-full bg-no-repeat h-[100em] xl:h-[158em] object-cover "
           style={{
-            backgroundImage: `url("https://image.tmdb.org/t/p/original//mBaXZ95R2OxueZhvQbcEWy2DqyO.jpg")`,
+            backgroundImage: `url("https://image.tmdb.org/t/p/w500${banner}")`,
+            backgroundSize: "85em",
           }}
         ></div>
         <div className="absolute text-[f8fafc] top-[42em] left-20 xl:top-[69em]">
           <div className=" w-[32em] xl:w-[76em] xl:grid xl:gap-6  ">
-            <h1 className="font-bold text-[2.25em] opacity-100 mb-1  leading-10 xl:text-[7.5em] xl:leading-[1.2em]">
-              The Hunger Games: The Ballad of Songbirds & Snakes
+            <h1 className="font-bold text-[2.25em] opacity-100 mb-2  leading-10 xl:text-[7.5em] xl:leading-[1.2em]">
+              {title}
             </h1>
-            <div className="grid gap-6">
-              <p className="text-[#16a34a] font-semibold text-[0.875em] mb-1 xl:text-[3em]">
-                72% Match <em></em>
-                <span className="text-[#d1d5db]">2023-11-15</span>
+
+            <div className="grid gap-2">
+              <p className="text-[#16a34a] font-semibold text-[0.875em] xl:text-[3em] mb-2">
+                <Match />% Match <em></em>
+                <span className="text-[#d1d5db]">{releseDate}</span>
               </p>
               <p className="xl:text-[3.5em] text-gray-300 xl:leading-[1.5em] ">
-                64 years before he becomes the tyrannical president of Panem,
-                Coriolanus Snow sees a chance for a change in fortunes when he
-                mentors Lucy Gray Baird, the female tribute..
+                <p className="xl:text-[3.5em] text-gray-300 xl:leading-[1.5em]   overflow-hidden ">
+                  {overview}
+                </p>
               </p>
             </div>
             <div className=" grid grid-cols-4 xl:grid-cols-[4em,4em] items-center space-x-2 pt-1.5 mt-1 xl:text-8xl xl:gap-12">

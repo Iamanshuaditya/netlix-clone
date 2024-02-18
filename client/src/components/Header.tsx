@@ -4,10 +4,12 @@ import { Location } from "history";
 import { Menu } from "./Menu";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { userEmailState } from "@/store/atoms/email";
 import { Bell, Search } from "lucide-react";
 import { ProfileMenu } from "./ProfileMenu";
+import SearchState from "@/store/atoms/Search";
+import SearchResults from "../utlis/Search";
 
 function Header() {
   const location = useLocation();
@@ -31,6 +33,11 @@ function Header() {
 
   const [storedEmail, setStoredEmail] = useState<string | null>(null);
   const [, setUserEmail] = useRecoilState(userEmailState);
+  const setSearch = useSetRecoilState(SearchState);
+
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value);
+  }
 
   useEffect(() => {
     const storedDataString: string | null = localStorage.getItem(
@@ -42,8 +49,7 @@ function Header() {
     const email = storedData?.email;
     setStoredEmail(email);
     setUserEmail(email);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setUserEmail]);
 
   const navigate = useNavigate();
   function handleClick() {
@@ -85,6 +91,7 @@ function Header() {
 
   return (
     <nav className="sticky xl:w-[400%] top-0 w-full z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4 ">
+      <SearchResults />
       <div className="grid grid-cols-5 xl:grid-cols-2 justify-between items-center bg-[#171717]  h-16 mr-16   text-white w-full bg-transparent xl:h-60 xl:w-[92%] xl:mr-0   ml-0">
         <Menu />
         <div className="grid grid-cols-[1fr,1fr] justify-between w-[35rem] items-center text-[#cbd5ffe1] maxWidth:hidden">
@@ -124,7 +131,7 @@ function Header() {
           </div>
         </div>
         <div
-          className={`grid grid-cols-4 xl:grid-cols-[5em,3em,5em] text-white  col-start-5 items-center w-[90%]  
+          className={`grid grid-cols-4 xl:grid-cols-[5em,3em,5em] text-white  col-start-5 items-center w-[100%]  
             isSearchOpen ? 42 : 80
           }relative`}
         >
@@ -137,6 +144,7 @@ function Header() {
           )}
 
           <input
+            onChange={handleSearch}
             type="text"
             placeholder="Search"
             className={`bg-transparent p-1 pl-10 transition-all duration-300 col-start-1 col-end-3 xl:col-start-1 xl:text-5xl xl:w-20 ${
