@@ -1,8 +1,9 @@
+import { Movie } from "@/components/Card";
 import { atom } from "recoil";
 
-const initialMoviesState: string[] = [];
+const initialMoviesState: Movie[] = [];
 
-const RomanceState = atom<string[]>({
+const RomanceState = atom<Movie[]>({
   key: "RomanceState",
   default: initialMoviesState,
 });

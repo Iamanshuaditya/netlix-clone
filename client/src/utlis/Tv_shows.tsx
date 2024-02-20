@@ -3,12 +3,9 @@ import ComediestvShows from "@/store/atoms/Tv_shows/Comedie_tvshow";
 import RomanceTvShow from "@/store/atoms/Tv_shows/Romance_tv";
 import topRatedTvShows from "@/store/atoms/Tv_shows/top_rated";
 import tvDocumentryState from "@/store/atoms/Tv_shows/tv_Documentry";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-interface Movie {
-  backdrop_path: string;
-}
 
 const api_key = import.meta.env.VITE_TMDB_API;
 
@@ -45,20 +42,12 @@ function TvShows() {
             `https://api.themoviedb.org/3/discover/tv?api_key=${api_key}&with_genres=99`
           ),
         ]);
-        const processResponse = (response: AxiosResponse) => {
-          const processedData = response.data.results.map((movie: Movie) =>
-            movie.backdrop_path
-              ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
-              : null
-          );
-          return processedData;
-        };
 
-        setTrendingTvShow(processResponse(trendingResponseTv));
-        setTopRatedTvShow(processResponse(topRatedResponse));
-        setComedyTvShow(processResponse(comediesResponse));
-        setRomanseTvshow(processResponse(romanceResponse));
-        setTvDocumentry(processResponse(documentaryResponse));
+        setTrendingTvShow(trendingResponseTv.data.results);
+        setTopRatedTvShow(topRatedResponse.data.results);
+        setComedyTvShow(comediesResponse.data.results);
+        setRomanseTvshow(romanceResponse.data.results);
+        setTvDocumentry(documentaryResponse.data.results);
       } catch (error) {
         console.log(error);
       }

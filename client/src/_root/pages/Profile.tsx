@@ -1,5 +1,3 @@
-import React from "react";
-
 const Profile: React.FC = () => {
   return (
     <div className="text-[#f8fafc] text-4xl font-medium">Manage Profiles:</div>

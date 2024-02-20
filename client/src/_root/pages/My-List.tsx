@@ -1,12 +1,18 @@
 import SearchCard from "@/components/SearchCard";
+import { DrawerState } from "@/store/atoms/Drawer";
 import SearchState from "@/store/atoms/Search";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import Drawer from "../../components/Drawer";
+import Data from "@/utlis/Movies_Data";
 
 function MyList() {
+  const isDrawerOpen = useRecoilValue(DrawerState);
   const [searchValues] = useRecoilState(SearchState);
 
   return (
     <>
+      {isDrawerOpen ? <Drawer /> : ""}
+      <Data />
       {searchValues == "" ? (
         <div>
           <section className="pb-16 pt-10 text-white">

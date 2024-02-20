@@ -2,13 +2,9 @@ import PopularMovies from "@/store/atoms/Tv_shows/PopularMovies";
 import PopularTvShow from "@/store/atoms/Tv_shows/PopularTV";
 import NewMovies from "@/store/atoms/popular_new/new";
 import NewTvShows from "@/store/atoms/popular_new/newTv";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-
-interface Movie {
-  backdrop_path: string;
-}
 
 const api_key = import.meta.env.VITE_TMDB_API;
 
@@ -40,20 +36,11 @@ function PopularNew() {
             `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}`
           ),
         ]);
-        const processResponse = (response: AxiosResponse) => {
-          const processedData = response.data.results.map((movie: Movie) =>
-            movie.backdrop_path
-              ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
-              : null
-          );
 
-          return processedData;
-        };
-
-        setNewMovies(processResponse(newMovieResponse));
-        setTvShow(processResponse(NewTvshowResponse));
-        setPopularTvShow(processResponse(popularTvShowResponse));
-        setPopularMovies(processResponse(PopularMovieResponse));
+        setNewMovies(newMovieResponse.data.results);
+        setTvShow(NewTvshowResponse.data.results);
+        setPopularTvShow(popularTvShowResponse.data.results);
+        setPopularMovies(PopularMovieResponse.data.results);
       } catch (error) {
         console.log(error);
       }

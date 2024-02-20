@@ -11,7 +11,6 @@ import DocumentaryState from "@/store/atoms/movies/Documentaries";
 
 function Movies() {
   const trending = useRecoilValue(Trending);
-
   const topRated = useRecoilValue(topRatedState);
   const action = useRecoilValue(ActionState);
   const Comedies = useRecoilValue(ComediesState);

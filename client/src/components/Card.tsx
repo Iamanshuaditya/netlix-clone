@@ -1,5 +1,29 @@
+import { CardValues } from "@/store/atoms/CardValues";
+import { DrawerState } from "@/store/atoms/Drawer";
+import MovieId from "@/store/atoms/movies/MovieId";
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useSetRecoilState } from "recoil";
+
+export interface Movie {
+  adult: boolean;
+  backdrop_path: string;
+  id: number;
+  name: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  poster_path: string | null;
+  media_type: string;
+  genre_ids: number[];
+  popularity: number;
+  release_date: string;
+
+  first_air_date: string;
+  vote_average: number;
+  vote_count: number;
+  origin_country: string[];
+}
 
 function Card({
   top,
@@ -8,9 +32,9 @@ function Card({
 }: {
   top: number;
   title: string;
-  movieData: string[];
+  movieData: Movie[];
 }) {
-  function hanleRightClick() {
+  function handleRightClick() {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
       const scrollableWidth = container.scrollWidth - container.clientWidth;
@@ -31,6 +55,7 @@ function Card({
       }
     }
   }
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -56,7 +81,7 @@ function Card({
         </div>
         <div
           className="text-white bg-[#00000088] z-50    hover:opacity-100 w-8 justify-center  opacity-0 h-[11.5em] left-[78em]  grid items-center absolute    transition duration-150"
-          onClick={hanleRightClick}
+          onClick={handleRightClick}
         >
           <FaChevronRight />
         </div>
@@ -67,18 +92,35 @@ function Card({
 
 export default Card;
 
-function Image({ movieData }: { movieData: string[] }) {
-  if (!movieData || movieData.length === 0) {
-    return null;
+function Image({ movieData }: { movieData: Movie[] }) {
+  const setCardValue = useSetRecoilState(CardValues);
+  const setDrawerValue = useSetRecoilState(DrawerState);
+  const setVideoId = useSetRecoilState(MovieId);
+  const backdropImages: string[] = [];
+
+  function handleclick(index: number) {
+    const value = movieData[index];
+    setCardValue([value]);
+    console.log(value);
+    console.log(value.id);
+    setVideoId(value.id);
+    setDrawerValue(true);
   }
+
+  movieData.forEach((item) => {
+    if (item.backdrop_path) {
+      backdropImages.push(item.backdrop_path);
+    }
+  });
 
   return (
     <>
-      {movieData.map((link: string, index: number) => (
+      {backdropImages.map((backdropPath, index) => (
         <img
+          onClick={() => handleclick(index)}
           key={index}
-          src={link}
-          alt="image"
+          src={`https://image.tmdb.org/t/p/w500${backdropPath}`}
+          alt="Backdrop"
           className="m-1 hover:scale-110 transition duration-150 ease-out xl:w-[90em] xl:h-[24em] w-[28em] h-[11em]"
         />
       ))}
