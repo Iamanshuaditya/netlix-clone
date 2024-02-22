@@ -13,16 +13,14 @@ export interface Movie {
   original_language: string;
   original_title: string;
   overview: string;
-  poster_path: string | null;
+  poster_path: string;
   media_type: string;
   genre_ids: number[];
   popularity: number;
   release_date: string;
+  title: string;
 
-  first_air_date: string;
-  vote_average: number;
   vote_count: number;
-  origin_country: string[];
 }
 
 function Card({
@@ -61,7 +59,7 @@ function Card({
   return (
     <div>
       <div className={`top-[${top}em] maxWidth:absolute z-50  `}>
-        <h1 className="font-semibold text-[1.2500em] ml-20 mb-2  xl:text-6xl xl:mb-10  ]">
+        <h1 className="font-semibold text-[1.2500em] ml-20 mb-2  xl:text-6xl xl:mb-10  xl:w-[150%] ]">
           {title}
         </h1>
         <div
@@ -75,7 +73,7 @@ function Card({
           ref={scrollContainerRef}
           style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
         >
-          <div className="w-[75rem] flex  xl:w-[70rem]">
+          <div className="w-[75rem] flex  xl:w-[243em]">
             <Image movieData={movieData} />
           </div>
         </div>

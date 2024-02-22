@@ -18,7 +18,7 @@ export function Menu() {
     navigate("/");
   }
   return (
-    <div className="hidden maxWidth:grid xl:w-36 xl:text-9xl xl:grid xl:grid-cols-2 ">
+    <div className="hidden  xl:w-36 xl:text-9xl xl:grid xl:grid-cols-2 ">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button

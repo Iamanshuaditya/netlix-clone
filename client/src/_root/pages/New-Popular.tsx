@@ -24,7 +24,7 @@ function NewPopular() {
       <Data />
 
       {searchValues == "" ? (
-        <div className=" mt-5 grid gap-52 text-white ">
+        <div className=" mt-5 grid gap-52 text-white xl:gap-[33em] ">
           <PopularNew />
           <Card top={5} title="New Tv Show" movieData={newTvShow} />
           <Card top={5} title="New Movies" movieData={newMovies} />

@@ -16,7 +16,7 @@ module.exports = {
     extend: {
       screens: {
         maxWidth: { max: "1024px" },
-        xl: { max: "640px" },
+        xl: { max: "1024px" },
         "2xl": { min: "640px", max: "767px" },
       },
       colors: {

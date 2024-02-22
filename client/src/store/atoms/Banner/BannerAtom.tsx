@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-interface Movie {
+export interface Movie {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -9,18 +9,19 @@ interface Movie {
   original_title: string;
   overview: string;
   popularity: number;
+  name: string;
   poster_path: string;
   release_date: string;
   title: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
+  media_type: string;
 }
 
-const initialState: Movie[] = [];
 const RandomBannerState = atom<Movie[]>({
   key: "RamdomBanner",
-  default: initialState,
+  default: [],
 });
 
 export default RandomBannerState;

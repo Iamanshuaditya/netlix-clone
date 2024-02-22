@@ -12,7 +12,6 @@ import Drawer from "../../components/Drawer";
 import TvShows from "@/utlis/Tv_shows";
 
 import { useRecoilState, useRecoilValue } from "recoil";
-import Data from "@/utlis/Movies_Data";
 
 function TvShow() {
   const isDrawerOpen = useRecoilValue(DrawerState);
@@ -25,10 +24,9 @@ function TvShow() {
   return (
     <>
       {isDrawerOpen ? <Drawer /> : ""}
-      <Data />
 
       {searchValues == "" ? (
-        <div className=" grid gap-52 text-white mt-5">
+        <div className=" grid gap-52 text-white mt-5 xl:gap-[37rem] xl:mt-10">
           <TvShows />
           <Card title="Trending Now" top={30} movieData={trending} />
           <Card title="Top Rated " top={30} movieData={topRatedShows} />

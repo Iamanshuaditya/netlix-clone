@@ -42,6 +42,7 @@ app.post('/create-checkout-session', async (req: Request, res: Response) => {
       success_url: `${YOUR_DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${YOUR_DOMAIN}?canceled=true`,
     });
+    console.log('Session ID:', session.id);
 
     res.json({ sessionId: session.id });
 
@@ -113,11 +114,13 @@ app.post(
 app.get('/check-subscription-status', async (req: Request, res: Response) => {
   try {
     const authHeader = req.headers['authorization'];
+    console.log(authHeader)
     if (!authHeader) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
+    const token = authHeader.split('Bearer ')[1];
 
-    const decodedToken = await admin.auth().verifyIdToken(authHeader);
+    const decodedToken = await admin.auth().verifyIdToken(token);
     const user = await admin.auth().getUser(decodedToken.uid);
 
     const subscriptionStatus = await checkSubscriptionStatus(user.email || ''); 
@@ -139,15 +142,16 @@ async function checkSubscriptionStatus(email: string): Promise<boolean> {
   }
 }
 
-
 async function getUserSubscriptionByEmail(email: string) {
   const snapshot = await db.collection('subscriptions').where('email', '==', email).get();
   if (snapshot.empty) {
     return null;
   }
 
+  // Assuming you have a field called 'status' in your subscription document
   const subscriptionData = snapshot.docs[0].data();
   return subscriptionData;
 }
+
 
 app.listen(4242, () => console.log('Running on port 4242'));

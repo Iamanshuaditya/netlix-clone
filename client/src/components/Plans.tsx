@@ -21,8 +21,11 @@ function Plans() {
 
   useEffect(() => {
     const checkSubscriptionStatus = async () => {
+      console.log(user);
       if (!user) return;
       const token = await user.getIdToken();
+
+      console.log(token);
       try {
         const response = await fetch(
           "http://localhost:4242/check-subscription-status",
@@ -30,7 +33,7 @@ function Plans() {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+              authorization: `Bearer ${token}`,
             },
           }
         );
@@ -56,8 +59,8 @@ function Plans() {
     };
 
     checkSubscriptionStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate]);
+  }, [navigate, user]);
+
   useEffect(() => {
     const createCheckoutSession = async () => {
       try {
@@ -95,7 +98,6 @@ function Plans() {
     if (selectedPlan && userEmail) {
       createCheckoutSession();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPlan, userEmail, setSessionId]);
 
   const redirectToCheckout = async (sessionId: string) => {
@@ -117,11 +119,11 @@ function Plans() {
   };
   console.log("this is session_id", sessionId);
   return (
-    <div className="mx-44 my-12 flex flex-col gap-8 mb-28  2xl:w-[148%] maxWidth:w-[345%] xl:my-0  xl:ml-6">
+    <div className="mx-44 my-12 flex flex-col gap-8 mb-28  2xl:w-[148%] maxWidth:w-[345%] xl:my-0  xl:ml-6 xl:pl-[6em] xl:gap-32">
       <h1 className="text-[#f8fafc] text-4xl  font-bold xl:text-4xl w-full xl:text-[7em] xl:leading-[1em] ">
         Choose the plan that’s right for you
       </h1>
-      <div className="flex w-full flex-col gap-4 xl:text-6xl xl:gap-14">
+      <div className="flex w-full flex-col gap-4 xl:text-6xl xl:gap-12">
         <div className="flex items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +188,7 @@ function Plans() {
       <section>
         <div className="overflow-x-auto">
           <div dir="ltr" className="min-w-[30rem] py-2.5 relative text-white">
-            <div className="grid grid-cols-[10em,10em,10em,10em] justify-end gap-5 xl:w-[150%] xl:gap-80">
+            <div className="grid grid-cols-[10em,10em,10em,10em] justify-end gap-5 xl:w-[160%] xl:gap-80">
               <div
                 className={`grid aspect-square w-28 cursor-pointer place-items-center rounded bg-red-600 font-medium  xl:rounded-2xl xl:w-96 xl:text-5xl ${
                   selectedPlan === "mobile" ? "opacity-100" : "opacity-70"
@@ -256,7 +258,7 @@ function Plans() {
 
             <button
               type="submit"
-              className="grid items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 bg-red-600 text-white hover:bg-red-700 dark:bg-red-600 dark:text-white dark:hover:bg-red-700 h-10 px-4 py-2 w-full max-w-sm rounded xl:text-7xl  xl:px-96 xl:py"
+              className="grid items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 bg-red-600 text-white hover:bg-red-700 dark:bg-red-600 dark:text-white dark:hover:bg-red-700 h-10 px-4 py-2 w-full max-w-sm rounded xl:text-7xl  "
               aria-label="Subscribe to selected plan "
               disabled={!selectedPlan}
             >

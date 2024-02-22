@@ -12,7 +12,7 @@ function MoviesPage() {
     <>
       {isDrawerOpen ? <Drawer /> : ""}
       {searchValues == "" ? (
-        <div className="relative top-[-31em] mb-[61em]">
+        <div className="relative top-[-31em] mb-[61em] xl:mb-[30em] xl:top-[-120em]">
           <Movies />
         </div>
       ) : (

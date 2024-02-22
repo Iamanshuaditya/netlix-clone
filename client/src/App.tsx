@@ -17,7 +17,7 @@ import MyList from "./_root/pages/My-List";
 import MoviesPage from "./_root/pages/MoviesPage";
 
 function App() {
-  const [storedEmail, setStoredEmail] = useState<string | null>(null);
+  const [storedEmail, setStoredEmail] = useState(null);
 
   useEffect(() => {
     const storedDataString: string | null = localStorage.getItem(

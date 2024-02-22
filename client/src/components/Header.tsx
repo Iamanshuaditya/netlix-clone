@@ -1,6 +1,6 @@
 import netflix from "../../public/images/netflix.png";
 import { NavLink, useLocation } from "react-router-dom";
-import { Location } from "history";
+
 import { Menu } from "./Menu";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -10,26 +10,13 @@ import { Bell, Search } from "lucide-react";
 import { ProfileMenu } from "./ProfileMenu";
 import SearchState from "@/store/atoms/Search";
 import SearchResults from "../utlis/Search";
+import toast from "react-hot-toast";
 
 function Header() {
   const location = useLocation();
   useEffect(() => {
     console.log(location.pathname);
   }, [location]);
-
-  interface Match {
-    url: string;
-  }
-
-  interface CustomNavLinkProps {
-    to: string;
-    activeClassName: string;
-    isActive: (match: Match, location: Location) => boolean;
-  }
-
-  const isLinkActive = (match: Match, location: Location) => {
-    return location.pathname === match.url;
-  };
 
   const [storedEmail, setStoredEmail] = useState<string | null>(null);
   const [, setUserEmail] = useRecoilState(userEmailState);
@@ -83,14 +70,14 @@ function Header() {
     setIsSearchOpen(!isSearchOpen);
   };
 
-  const navLinkProps: CustomNavLinkProps = {
-    to: "/",
-    activeClassName: "text-white",
-    isActive: isLinkActive,
-  };
+  function handleBellClick() {
+    return toast.success("Do a star on Github", {
+      position: "bottom-center",
+    });
+  }
 
   return (
-    <nav className="sticky xl:w-[400%] top-0 w-full z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4 ">
+    <nav className="sticky   top-0 w-full z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4 xl:w-[400%] ">
       <SearchResults />
       <div className="grid grid-cols-5 xl:grid-cols-2 justify-between items-center bg-[#171717]  h-16 mr-16   text-white w-full bg-transparent xl:h-60 xl:w-[92%] xl:mr-0   ml-0">
         <Menu />
@@ -105,33 +92,65 @@ function Header() {
             <ul className="grid grid-cols-[4em,4.8em,4em,7em,4em] gap-4  font-medium text-[14px] cursor-pointer  ">
               <li>
                 {" "}
-                <NavLink {...navLinkProps} to={"/"}>
+                <NavLink
+                  to={"/"}
+                  className={(navData) =>
+                    navData.isActive ? "text-white" : "text-[#cbd5ffe1]"
+                  }
+                >
                   Home
                 </NavLink>
               </li>
               <li>
+                <a href="tv-shows">
+                  <NavLink
+                    to={"/tv-shows"}
+                    className={(navData) =>
+                      navData.isActive ? "text-white" : "text-[#cbd5ffe1]"
+                    }
+                  >
+                    Tv Shows
+                  </NavLink>
+                </a>
+              </li>
+              <li>
                 {" "}
-                <NavLink {...navLinkProps} to={"/tv-shows"}>
-                  Tv Shows
+                <NavLink
+                  to="/movies"
+                  className={(navData) =>
+                    navData.isActive ? "text-white" : "text-[#cbd5ffe1]"
+                  }
+                >
+                  Movies
                 </NavLink>
               </li>
               <li>
                 {" "}
-                <NavLink to="/movies">Movies</NavLink>
+                <NavLink
+                  to="/new-and-popular"
+                  className={(navData) =>
+                    navData.isActive ? "text-white" : "text-[#cbd5ffe1]"
+                  }
+                >
+                  New & Popular
+                </NavLink>
               </li>
               <li>
                 {" "}
-                <NavLink to="/new-and-popular">New & Popular</NavLink>
-              </li>
-              <li>
-                {" "}
-                <NavLink to="/my-list">My List</NavLink>
+                <NavLink
+                  to="/my-list"
+                  className={(navData) =>
+                    navData.isActive ? "text-white" : "text-[#cbd5ffe1]"
+                  }
+                >
+                  My List
+                </NavLink>
               </li>
             </ul>
           </div>
         </div>
         <div
-          className={`grid grid-cols-4 xl:grid-cols-[5em,3em,5em] text-white  col-start-5 items-center w-[100%]  
+          className={`grid grid-cols-4 xl:grid-cols-[20em,3em,5em] text-white  col-start-5 items-center w-[100%]  
             isSearchOpen ? 42 : 80
           }relative`}
         >
@@ -147,12 +166,12 @@ function Header() {
             onChange={handleSearch}
             type="text"
             placeholder="Search"
-            className={`bg-transparent p-1 pl-10 transition-all duration-300 col-start-1 col-end-3 xl:col-start-1 xl:text-5xl xl:w-20 ${
+            className={`bg-transparent p-1 pl-10 transition-all duration-300 col-start-1 col-end-3 xl:w-60 xl:pl-16 xl:col-start-1 xl:text-5xl   ${
               isSearchOpen ? "w-32" : "w-0"
             }`}
             style={{ visibility: isSearchOpen ? "visible" : "hidden" }}
           ></input>
-          <Bell size={20} className="xl:hidden" />
+          <Bell size={20} className="xl:hidden" onClick={handleBellClick} />
           {storedEmail == null || storedEmail === "" ? (
             <button
               className="bg-red-500 text-[14px] w-24 hover:bg-red-700 text-white font-bold py-2 xl:h-fit px-4 border border-red-700 rounded-lg"

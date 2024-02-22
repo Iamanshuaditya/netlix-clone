@@ -25,3 +25,21 @@ opacity: 0.8;
     color: white;
     
  }
+
+ body{
+    overflow-x: hidden;
+ }
+
+ .banner{
+    background-size: 150em;
+
+ }
+
+ 
+ @media  screen and (max-width: 1024px) {
+
+    .banner{
+        background-size: 256em;
+     }
+    
+}
