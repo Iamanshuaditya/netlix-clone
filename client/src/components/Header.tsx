@@ -1,16 +1,17 @@
 import netflix from "../../public/images/netflix.png";
 import { NavLink, useLocation } from "react-router-dom";
 
-import { Menu } from "./Menu";
+// import { Menu } from "./Menu";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { userEmailState } from "@/store/atoms/email";
 import { Bell, Search } from "lucide-react";
-import { ProfileMenu } from "./ProfileMenu";
+import ProfileMenu from "./ProfileMenu";
 import SearchState from "@/store/atoms/Search";
 import SearchResults from "../utlis/Search";
 import toast from "react-hot-toast";
+import NewMenu from "./NewMenu";
 
 function Header() {
   const location = useLocation();
@@ -80,7 +81,7 @@ function Header() {
     <nav className="sticky   top-0 w-full z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4 xl:w-[400%] ">
       <SearchResults />
       <div className="grid grid-cols-5 xl:grid-cols-2 justify-between items-center bg-[#171717]  h-16 mr-16   text-white w-full bg-transparent xl:h-60 xl:w-[92%] xl:mr-0   ml-0">
-        <Menu />
+        <NewMenu />
         <div className="grid grid-cols-[1fr,1fr] justify-between w-[35rem] items-center text-[#cbd5ffe1] maxWidth:hidden">
           <img
             src={netflix}
@@ -150,7 +151,7 @@ function Header() {
           </div>
         </div>
         <div
-          className={`grid grid-cols-4 xl:grid-cols-[20em,3em,5em] text-white  col-start-5 items-center w-[100%]  
+          className={`grid grid-cols-4 xl:grid-cols-[20em,3em,10em] text-white  col-start-5 items-center w-[100%]  
             isSearchOpen ? 42 : 80
           }relative`}
         >
@@ -174,7 +175,7 @@ function Header() {
           <Bell size={20} className="xl:hidden" onClick={handleBellClick} />
           {storedEmail == null || storedEmail === "" ? (
             <button
-              className="bg-red-500 text-[14px] w-24 hover:bg-red-700 text-white font-bold py-2 xl:h-fit px-4 border border-red-700 rounded-lg"
+              className="bg-red-500 text-[14px] w-24 hover:bg-red-700 text-white font-bold py-2 xl:h-fit px-4 border border-red-700 rounded-lg xl:text-5xl xl:w-[5em] xl:p-6"
               type="button"
               onClick={handleClick}
             >

@@ -73,7 +73,7 @@ function Card({
           ref={scrollContainerRef}
           style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
         >
-          <div className="w-[75rem] flex  xl:w-[243em]">
+          <div className="w-[75rem] flex  xl:w-[243em] ">
             <Image movieData={movieData} />
           </div>
         </div>
@@ -119,7 +119,7 @@ function Image({ movieData }: { movieData: Movie[] }) {
           key={index}
           src={`https://image.tmdb.org/t/p/w500${backdropPath}`}
           alt="Backdrop"
-          className="m-1 hover:scale-110 transition duration-150 ease-out xl:w-[90em] xl:h-[24em] w-[28em] h-[11em]"
+          className="m-1 hover:scale-110 transition duration-150 ease-out xl:w-[90em] xl:h-[24em] w-[28em] h-[11em] "
         />
       ))}
     </>

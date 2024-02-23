@@ -37,9 +37,14 @@ opacity: 0.8;
 
  
  @media  screen and (max-width: 1024px) {
-
-    .banner{
-        background-size: 256em;
-     }
+.banner {
+  background-size: 256em;
+   }
     
+}
+
+@media  screen and (max-width: 2560px  )  and (min-width: 1440px){
+   .banner {
+      background-size: 160em;
+   }
 }
