@@ -21,6 +21,10 @@ admin.initializeApp({
 });
 const db = admin.firestore();
 
+app.get('/', (req: Request, res: Response) => {
+  res.send('hwllo world')
+})
+
 app.post('/create-checkout-session', async (req: Request, res: Response) => {
   try {
     const prices = await stripe.prices.list({
@@ -71,14 +75,11 @@ app.post('/create-portal-session', async (req: Request, res: Response) => {
   }
 });
 
-app.post(
-  '/webhook',
-  express.raw({ type: 'application/json' }),
-  async (request, response) => {
+app.post('/webhook', express.raw({ type: 'application/json' }), async (request: Request<any, any, any, any, { 'stripe-signature': string }>, response: Response) => {
     try {
       let event = request.body;
 
-      const endpointSecret = 'whsec_iRI6s5aDSRBUyd9efJbtl4qpoAwjII1g';
+      const endpointSecret = 'we_1OmsQ4G8kvu8uWqCaSEznTTj';
 
       if (endpointSecret) {
         const signature = request.headers['stripe-signature'];
@@ -110,48 +111,120 @@ app.post(
     response.send();
   }
 );
-
 app.get('/check-subscription-status', async (req: Request, res: Response) => {
   try {
-    const authHeader = req.headers['authorization'];
-    console.log(authHeader)
-    if (!authHeader) {
+    const userToken = req.headers['authorization'];
+    if (!userToken) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-    const token = authHeader.split('Bearer ')[1];
 
-    const decodedToken = await admin.auth().verifyIdToken(token);
-    const user = await admin.auth().getUser(decodedToken.uid);
+    const decodedToken = await admin.auth().verifyIdToken(userToken);
+    const userEmail = decodedToken.email;
+    if (!userEmail) {
+      return res.status(400).json({ error: 'Email not found in Firebase token' });
+    }
 
-    const subscriptionStatus = await checkSubscriptionStatus(user.email || ''); 
+    const subscriptionStatus = await checkSubscriptionStatus(userEmail);
 
     res.json({ subscriptionStatus });
   } catch (error) {
-    console.error('Error verifying ID token:', error);
-    res.status(401).json({ error: 'Unauthorized' });
+    console.error('Error checking subscription status:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 async function checkSubscriptionStatus(email: string): Promise<boolean> {
   try {
-    const userSubscription = await getUserSubscriptionByEmail(email);
-    return userSubscription ? userSubscription.status === 'active' : false; 
+    const customer = await stripe.customers.list({ email: email, limit: 1 });
+    if (customer.data.length === 0) {
+      return false;
+    }
+
+    const subscriptions = await stripe.subscriptions.list({ customer: customer.data[0].id, limit: 1 });
+    if (subscriptions.data.length === 0) {
+      return false;
+    }
+
+    return subscriptions.data[0].status === 'active';
   } catch (error) {
     console.error('Error checking subscription status:', error);
     return false;
   }
 }
 
-async function getUserSubscriptionByEmail(email: string) {
-  const snapshot = await db.collection('subscriptions').where('email', '==', email).get();
-  if (snapshot.empty) {
-    return null;
-  }
 
-  // Assuming you have a field called 'status' in your subscription document
-  const subscriptionData = snapshot.docs[0].data();
-  return subscriptionData;
+interface StripeCustomer {
+  id: string;
+
+}
+
+async function getProductName(productId: string) {
+  try {
+    const product = await stripe.products.retrieve(productId);
+    return product.name;
+  } catch (error) {
+    console.error('Error fetching product name:', error);
+    throw error;
+  }
+}
+
+async function getCustomerSubscriptionsByEmail(userEmail: string) {
+  try {
+    const customers = await stripe.customers.list({
+      email: userEmail,
+      limit: 3,
+    });
+
+    const subscriptionsPromises = customers.data.map(async (customer: any) => {
+      const subscriptions = await stripe.subscriptions.list({
+        customer: customer.id,
+        limit: 10,
+      });
+
+      const formattedSubscriptions = await Promise.all(subscriptions.data.map(async (subscription: any) => {
+        const productName = await getProductName(subscription.plan.product);
+        return {
+          plan: subscription.plan,
+          productName: productName,
+        };
+      }));
+
+      return {
+        customer,
+        subscriptions: formattedSubscriptions,
+      };
+    });
+
+    const subscriptions = await Promise.all(subscriptionsPromises);
+    return subscriptions;
+  } catch (error) {
+    console.error('Error fetching customer subscriptions:', error);
+    throw error;
+  }
 }
 
 
+
+
+app.get('/customer/subscriptions', async (req: Request, res: Response) => {
+  try {
+    const userEmail = req.query.email as string;  
+    if (!userEmail) {
+      return res.status(400).json({ error: 'Email not provided' });
+    }
+
+    const subscriptions = await getCustomerSubscriptionsByEmail(userEmail);
+    res.json({ subscriptions });
+  } catch (error) {
+    console.error('Error fetching customer subscriptions:', error);
+    res.status(500).json({ error: 'Error fetching customer subscriptions' });
+  }
+});
+
 app.listen(4242, () => console.log('Running on port 4242'));
+
+
+
+
+
+ 

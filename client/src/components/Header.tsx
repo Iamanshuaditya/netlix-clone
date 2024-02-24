@@ -151,7 +151,7 @@ function Header() {
           </div>
         </div>
         <div
-          className={`grid grid-cols-4 xl:grid-cols-[20em,3em,10em] text-white  col-start-5 items-center w-[100%]  
+          className={`grid grid-cols-4 xl:grid-cols-[20em,3em,10em] text-white  col-start-5 items-center w-[81%]  
             isSearchOpen ? 42 : 80
           }relative`}
         >

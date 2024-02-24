@@ -18,12 +18,16 @@ function Plans() {
 
   const navigate = useNavigate();
   const [sessionId, setSessionId] = useState<string | null>(null);
-
   useEffect(() => {
     const checkSubscriptionStatus = async () => {
       console.log(user);
       if (!user) return;
-      const token = await user.getIdToken();
+
+      if (!auth.currentUser) {
+        console.error("Current user is null");
+        return;
+      }
+      const token = await auth.currentUser.getIdToken();
 
       console.log(token);
       try {
@@ -33,7 +37,7 @@ function Plans() {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              authorization: `Bearer ${token}`,
+              authorization: token,
             },
           }
         );

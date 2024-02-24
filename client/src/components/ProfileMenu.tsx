@@ -1,3 +1,4 @@
+import { auth } from "@/firebase/FirebaseConfig";
 import { HelpCircle, LogOut, Pencil, User } from "lucide-react";
 import { useState } from "react";
 
@@ -6,6 +7,18 @@ function ProfileMenu() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        console.log("User signed out");
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+    location.reload();
   };
 
   return (
@@ -67,7 +80,7 @@ function ProfileMenu() {
               className="relative flex cursor-default select-none items-center rounded-sm xl:px-12 py-1.5  xl:leading-[2] px-2  font-medium outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-neutral-700 focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 xl:text-6xl"
               data-orientation="vertical"
               data-radix-collection-item=""
-              href="/profiles"
+              href="/"
             >
               <Pencil className="text-[#94a3b8]    xl:w-[2em] xl:h-[1.5em]  xl:mr-4 w-4 h-4 xl:ml-3" />
               <span className="line-clamp-1">Manage Profiles</span>
@@ -96,7 +109,7 @@ function ProfileMenu() {
               className="relative flex cursor-default select-none items-center rounded-sm xl:px-8 py-1.5  xl:leading-[2] px-2  font-medium outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-neutral-700 focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 xl:text-6xl"
               data-orientation="vertical"
               data-radix-collection-item=""
-              href="/help-center"
+              href="/help-centers"
             >
               <HelpCircle className="text-[#94a3b8]  xl:w-[3em] xl:h-[1.5em] xl:mr-0  mr-2 w-4 h-4 " />
               <span className="line-clamp-1">Help Center</span>
@@ -111,6 +124,7 @@ function ProfileMenu() {
               role="menuitem"
               data-orientation="vertical"
               data-radix-collection-item=""
+              onClick={handleSignOut}
             >
               Sign Out of Netflix
             </span>
