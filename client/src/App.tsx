@@ -15,6 +15,7 @@ import TvShow from "./_root/pages/TvShow";
 import NewPopular from "./_root/pages/New-Popular";
 import MyList from "./_root/pages/My-List";
 import MoviesPage from "./_root/pages/MoviesPage";
+import AddProfile from "./components/AddProfile";
 
 function App() {
   const [storedEmail, setStoredEmail] = useState(null);
@@ -70,7 +71,8 @@ function App() {
             </RootLayout>
           }
         />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profiles" element={<Profile />} />
+        <Route path="/profiles/add" element={<AddProfile />} />
       </Routes>
     </BrowserRouter>
   );

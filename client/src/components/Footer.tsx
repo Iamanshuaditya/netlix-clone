@@ -69,6 +69,13 @@ function Footer() {
           {" "}
           @ 2023-2024 Netflx.
         </p>
+
+        <p className="flex items-center justify-center">
+          Developed by <br />
+          <a href="#" className="hover:text-white ml-2 font-semibold">
+            Anshu Aditya
+          </a>
+        </p>
       </footer>
     </>
   );

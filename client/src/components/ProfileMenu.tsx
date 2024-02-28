@@ -80,7 +80,7 @@ function ProfileMenu() {
               className="relative flex cursor-default select-none items-center rounded-sm xl:px-12 py-1.5  xl:leading-[2] px-2  font-medium outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-neutral-700 focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 xl:text-6xl"
               data-orientation="vertical"
               data-radix-collection-item=""
-              href="/"
+              href="/profiles"
             >
               <Pencil className="text-[#94a3b8]    xl:w-[2em] xl:h-[1.5em]  xl:mr-4 w-4 h-4 xl:ml-3" />
               <span className="line-clamp-1">Manage Profiles</span>

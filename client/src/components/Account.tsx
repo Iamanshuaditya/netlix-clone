@@ -1,8 +1,19 @@
-import { ChevronDown, ChevronRight, CreditCard } from "lucide-react";
+import { userEmailState } from "@/store/atoms/email";
+import AccountDetails from "@/utlis/Account";
+import { ChevronDown, ChevronRight, ChevronUp, CreditCard } from "lucide-react";
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
 
 function Account() {
+  const [plan, setPlan] = useState("");
+  const [toggle, setToggle] = useState(false);
+  function handlePlanChange(newplan: string) {
+    setPlan(newplan);
+  }
+  const email = useRecoilValue(userEmailState);
   return (
     <div className="text-white relative top-10">
+      <AccountDetails onPlanChange={handlePlanChange} />
       <section className="  px-96  ">
         <div>
           <div className="space-y-2.5 ">
@@ -24,7 +35,7 @@ function Account() {
               <h2 className="text-lg text-neutral-400 sm:text-xl">
                 MEMBERSHIP &amp; BILLING
               </h2>
-              <p>anshuadiNametya825301@gmail.com</p>
+              <p>{email}</p>
             </div>
             <div
               data-orientation="horizontal"
@@ -67,9 +78,9 @@ function Account() {
                 PLAN DETAILS
               </h2>
               <div className="flex items-center gap-2">
-                <p>Mobile</p>
+                <p>{plan}</p>
                 <span className="rounded-sm px-1 text-neutral-100 ring-2 ring-slate-100">
-                  480p
+                  {plan == "Basic" ? "480" : "720"}
                 </span>
               </div>
             </div>
@@ -93,7 +104,11 @@ function Account() {
             ></div>
             <div className="space-y-2">
               <h2 className="text-lg text-neutral-400 sm:text-xl">PROFILE</h2>
-              <div className="w-full" data-orientation="vertical">
+              <div
+                className="w-full"
+                data-orientation="vertical"
+                onClick={() => setToggle(!toggle)}
+              >
                 <div
                   data-state="closed"
                   data-orientation="vertical"
@@ -127,9 +142,38 @@ function Account() {
                         ></img>
                         <p>ansuaditya</p>
                       </div>
-                      <ChevronDown />
+                      {toggle ? (
+                        <ChevronUp onClick={() => setToggle(false)} />
+                      ) : (
+                        <ChevronDown onClick={() => setToggle(true)} />
+                      )}
                     </button>
                   </h3>
+                  {toggle ? (
+                    <>
+                      <fieldset className="grid w-full items-start gap-3.5">
+                        <label className="text-sm sm:text-base">
+                          Profile Lock PIN:
+                        </label>
+                        <input
+                          className="flex h-10 w-full border border-slate-300 bg-transparent px-3 py-2 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-50 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 rounded-none"
+                          id="pin"
+                          placeholder="Profile Lock PIN"
+                          type="text"
+                          name="pin"
+                        />
+                      </fieldset>
+                      <button
+                        type="button"
+                        className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 rounded-none bg-slate-50 text-slate-900 hover:bg-red-600 hover:text-slate-100 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-red-600 dark:hover:text-slate-100 px-4 py-2 active:scale-[0.98] w-full mb-10 mt-5 "
+                        aria-label="Save profile"
+                      >
+                        Save
+                      </button>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                   <div
                     data-state="closed"
                     id="radix-:r3:"
