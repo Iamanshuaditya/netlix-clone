@@ -104,11 +104,7 @@ function Account() {
             ></div>
             <div className="space-y-2">
               <h2 className="text-lg text-neutral-400 sm:text-xl">PROFILE</h2>
-              <div
-                className="w-full"
-                data-orientation="vertical"
-                onClick={() => setToggle(!toggle)}
-              >
+              <div className="w-full" data-orientation="vertical">
                 <div
                   data-state="closed"
                   data-orientation="vertical"
@@ -122,6 +118,7 @@ function Account() {
                     <button
                       type="button"
                       aria-controls="radix-:r3:"
+                      onClick={() => setToggle(!toggle)}
                       aria-expanded="false"
                       data-state="closed"
                       data-orientation="vertical"
@@ -159,7 +156,8 @@ function Account() {
                           className="flex h-10 w-full border border-slate-300 bg-transparent px-3 py-2 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-50 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 rounded-none"
                           id="pin"
                           placeholder="Profile Lock PIN"
-                          type="text"
+                          type="number"
+                          min={0}
                           name="pin"
                         />
                       </fieldset>

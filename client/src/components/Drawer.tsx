@@ -11,8 +11,11 @@ import { FaPlay } from "react-icons/fa";
 import { PiColumnsFill } from "react-icons/pi";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
+import Gpt from "./chat/Gpt";
+
 function Drawer() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showGpt, SetShowGpt] = useState(true);
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("");
   const [releaseYear, setReleaseYear] = useState("");
@@ -86,6 +89,10 @@ function Drawer() {
       });
   }
 
+  function handleToggle() {
+    SetShowGpt(!showGpt);
+  }
+
   return (
     <div className={DrawerValue ? "block" : "hidden"}>
       <div className="fixed inset-0 flex items-start justify-center sm:items-center z-[1000] xl:pt-96 ">
@@ -102,7 +109,7 @@ function Drawer() {
           aria-describedby="radix-:rc:"
           aria-labelledby="radix-:rb:"
           data-state="open"
-          className="fixed z-50 grid gap-4  animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:rounded-lg sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 w-full overflow-hidden rounded-md bg-zinc-900 p-0 text-left align-middle shadow-xl dark:bg-zinc-900 sm:max-w-3xl xl:w-[75em] xl:h-[60%]"
+          className="fixed  h-full z-50 grid gap-4  animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:rounded-lg sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 w-full overflow-hidden rounded-md bg-zinc-900 p-0 text-left align-middle shadow-xl dark:bg-zinc-900 sm:max-w-3xl xl:w-[75em] xl:h-[60%]"
           style={{ pointerEvents: "auto" }}
         >
           <div className="relative aspect-video">
@@ -173,31 +180,46 @@ function Drawer() {
               </button>
             </div>
           </div>
-          <div className="grid gap-2.5 px-10 pb-10">
-            <h2
-              id="radix-:rb:"
-              className="dark:text-slate-50 text-lg font-medium leading-6 text-slate-50 sm:text-xl xl:text-3xl"
-            >
-              {title}
-            </h2>
-            <div className="flex items-center space-x-2 text-sm sm:text-base xl:text-4xl xl:gap-4">
-              <p className="font-semibold text-green-400">55% Match</p>
-              <p>{releaseYear}</p>
-              <span className="grid h-4 w-7 place-items-center text-xs font-bold text-neutral-400 ring-1 ring-neutral-400 xl:text-4xl  xl:h-11 xl:w-24">
-                {language}
-              </span>
+          {showGpt ? (
+            <div className="overflow-scroll  h-80    ">
+              <div className="grid gap-2.5 px-10 pb-10">
+                <div className="flex justify-between ">
+                  <h2
+                    id="radix-:rb:"
+                    className="dark:text-slate-50 text-lg font-medium leading-6 text-slate-50 sm:text-xl xl:text-3xl"
+                  >
+                    {title}
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={handleToggle}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                  >
+                    Netflix GPT
+                  </button>
+                </div>
+                <div className="flex items-center space-x-2 text-sm sm:text-base xl:text-4xl xl:gap-4">
+                  <p className="font-semibold text-green-400">55% Match</p>
+                  <p>{releaseYear}</p>
+                  <span className="grid h-4 w-7 place-items-center text-xs font-bold text-neutral-400 ring-1 ring-neutral-400 xl:text-4xl  xl:h-11 xl:w-24">
+                    {language}
+                  </span>
+                </div>
+                <p
+                  id="radix-:rc:"
+                  className="line-clamp-3 text-xs text-slate-50 dark:text-slate-50 sm:text-sm xl:text-5xl xl:leading-[1.5em]"
+                >
+                  {overview}
+                </p>
+                <div className="flex items-center gap-2 text-xs sm:text-sm ">
+                  <span className="text-slate-600 xl:text-[2rem]">Genres:</span>
+                  Science Fiction, Action, Adventure
+                </div>
+              </div>
             </div>
-            <p
-              id="radix-:rc:"
-              className="line-clamp-3 text-xs text-slate-50 dark:text-slate-50 sm:text-sm xl:text-5xl xl:leading-[1.5em]"
-            >
-              {overview}
-            </p>
-            <div className="flex items-center gap-2 text-xs sm:text-sm ">
-              <span className="text-slate-600 xl:text-[2rem]">Genres:</span>
-              Science Fiction, Action, Adventure
-            </div>
-          </div>
+          ) : (
+            <Gpt onclick={handleToggle} />
+          )}
           <button
             type="button"
             className="absolute right-4 top-4 z-20 rounded-full bg-neutral-800 p-1.5 opacity-70 ring-offset-slate-900 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-0 disabled:pointer-events-none data-[state=open]:bg-slate-800 dark:bg-neutral-800 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800"
