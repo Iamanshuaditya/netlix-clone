@@ -95,7 +95,7 @@ function Drawer() {
 
   return (
     <div className={DrawerValue ? "block" : "hidden"}>
-      <div className="fixed inset-0 flex items-start justify-center sm:items-center z-[1000] xl:pt-96 ">
+      <div className="fixed inset-0 flex items-start justify-center sm:items-center z-[1000]   ">
         <div
           data-state="open"
           className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-all duration-100 data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:fade-in "
@@ -109,7 +109,7 @@ function Drawer() {
           aria-describedby="radix-:rc:"
           aria-labelledby="radix-:rb:"
           data-state="open"
-          className="fixed  h-full z-50 grid gap-4  animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:rounded-lg sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 w-full overflow-hidden rounded-md bg-zinc-900 p-0 text-left align-middle shadow-xl dark:bg-zinc-900 sm:max-w-3xl xl:w-[75em] xl:h-[60%]"
+          className="fixed  h-full z-50 grid gap-4  animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:rounded-lg sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 w-full overflow-hidden rounded-md bg-zinc-900 p-0 text-left align-middle shadow-xl dark:bg-zinc-900 sm:max-w-3xl "
           style={{ pointerEvents: "auto" }}
         >
           <div className="relative aspect-video">
@@ -143,17 +143,17 @@ function Drawer() {
               </div>
             </div>
             <div className="absolute bottom-6 z-20 flex w-full items-center justify-between gap-2 px-10">
-              <div className="flex items-center gap-2.5 xl:gap-16">
+              <div className="flex items-center gap-2.5  ">
                 <button
                   type="button"
                   onClick={handlePlayButtonClick}
-                  className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 bg-slate-50 text-slate-900 dark:bg-slate-50 dark:text-slate-900 px-4 group h-auto rounded py-1.5 xl:text-5xl  xl:px-12 xl:py-6"
+                  className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 bg-slate-50 text-slate-900 dark:bg-slate-50 dark:text-slate-900 px-4 xl:px-2 group h-auto rounded py-1.5  "
                   aria-label="Play show"
                 >
                   {isPlaying ? (
-                    <PiColumnsFill className="mr-3" size={20} />
+                    <PiColumnsFill className="mr-3 xl:mr-1" size={20} />
                   ) : (
-                    <FaPlay className="mr-5" size={20} />
+                    <FaPlay className="mr-5 xl:mr-2" size={20} />
                   )}
                   {isPlaying ? "Pause" : "Play"}
                 </button>
@@ -163,7 +163,7 @@ function Drawer() {
                   aria-label="Add to My List"
                   data-state="closed"
                 >
-                  <Plus onClick={AddtoList} className="xl:w-16 xl:h-16" />
+                  <Plus onClick={AddtoList} className=" " />
                 </button>
               </div>
               <button
@@ -173,9 +173,9 @@ function Drawer() {
                 aria-label={isMuted ? "Unmute video" : "Mute video"}
               >
                 {isMuted ? (
-                  <VolumeX className="xl:w-16 xl:h-16" />
+                  <VolumeX className=" " />
                 ) : (
-                  <Volume2 className="xl:w-16 xl:h-16" />
+                  <Volume2 className=" " />
                 )}
               </button>
             </div>
@@ -186,7 +186,7 @@ function Drawer() {
                 <div className="flex justify-between ">
                   <h2
                     id="radix-:rb:"
-                    className="dark:text-slate-50 text-lg font-medium leading-6 text-slate-50 sm:text-xl xl:text-3xl"
+                    className="dark:text-slate-50 text-lg font-medium leading-6 text-slate-50 sm:text-xl  "
                   >
                     {title}
                   </h2>
@@ -198,21 +198,21 @@ function Drawer() {
                     Netflix GPT
                   </button>
                 </div>
-                <div className="flex items-center space-x-2 text-sm sm:text-base xl:text-4xl xl:gap-4">
+                <div className="flex items-center space-x-2 text-sm sm:text-base  ">
                   <p className="font-semibold text-green-400">55% Match</p>
                   <p>{releaseYear}</p>
-                  <span className="grid h-4 w-7 place-items-center text-xs font-bold text-neutral-400 ring-1 ring-neutral-400 xl:text-4xl  xl:h-11 xl:w-24">
+                  <span className="grid h-4 w-7 place-items-center text-xs font-bold text-neutral-400 ring-1 ring-neutral-400 ">
                     {language}
                   </span>
                 </div>
                 <p
                   id="radix-:rc:"
-                  className="line-clamp-3 text-xs text-slate-50 dark:text-slate-50 sm:text-sm xl:text-5xl xl:leading-[1.5em]"
+                  className="line-clamp-3 text-xs text-slate-50 dark:text-slate-50 sm:text-sm    "
                 >
                   {overview}
                 </p>
                 <div className="flex items-center gap-2 text-xs sm:text-sm ">
-                  <span className="text-slate-600 xl:text-[2rem]">Genres:</span>
+                  <span className="text-slate-600  ">Genres:</span>
                   Science Fiction, Action, Adventure
                 </div>
               </div>

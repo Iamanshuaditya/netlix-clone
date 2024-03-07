@@ -78,9 +78,9 @@ function Header() {
   }
 
   return (
-    <nav className="sticky   top-0 w-full z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4 xl:w-[400%] ">
+    <nav className="sticky top-0 w-full z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4  xl:p-0 ">
       <SearchResults />
-      <div className="grid grid-cols-5 xl:grid-cols-2 justify-between items-center bg-[#171717]  h-16 mr-16   text-white w-full bg-transparent xl:h-60 xl:w-[92%] xl:mr-0   ml-0">
+      <div className="grid grid-cols-5   justify-between items-center bg-[#171717]  h-16 mr-16   text-white w-full bg-transparent ml-0">
         <NewMenu />
         <div className="grid grid-cols-[1fr,1fr] justify-between w-[35rem] items-center text-[#cbd5ffe1] maxWidth:hidden">
           <img
@@ -151,14 +151,14 @@ function Header() {
           </div>
         </div>
         <div
-          className={`grid grid-cols-4 xl:grid-cols-[20em,3em,10em] text-white  col-start-5 items-center w-[81%]  
+          className={`grid grid-cols-4  text-white  col-start-5 items-center w-[81%]  xl:col-start-4 xl:w-[200%]
             isSearchOpen ? 42 : 80
           }relative`}
         >
           {!location.pathname.includes("/login") && (
             <Search
               size={20}
-              className="absolute  cursor-pointer xl:w-20 xl:h-20 "
+              className="absolute  cursor-pointer  "
               onClick={toggleSearch}
             />
           )}
@@ -167,7 +167,7 @@ function Header() {
             onChange={handleSearch}
             type="text"
             placeholder="Search"
-            className={`bg-transparent p-1 pl-10 transition-all duration-300 col-start-1 col-end-3 xl:w-60 xl:pl-16 xl:col-start-1 xl:text-5xl   ${
+            className={`bg-transparent p-1 pl-10 transition-all duration-300 col-start-1 col-end-3 xl:w-16 xl:pl-10 xl:col-start-1 xl:text-base   ${
               isSearchOpen ? "w-32" : "w-0"
             }`}
             style={{ visibility: isSearchOpen ? "visible" : "hidden" }}
@@ -175,7 +175,7 @@ function Header() {
           <Bell size={20} className="xl:hidden" onClick={handleBellClick} />
           {storedEmail == null || storedEmail === "" ? (
             <button
-              className="bg-red-500 text-[14px] w-24 hover:bg-red-700 text-white font-bold py-2 xl:h-fit px-4 border border-red-700 rounded-lg xl:text-5xl xl:w-[5em] xl:p-6"
+              className="bg-red-500 text-[14px] w-24 p-2 hover:bg-red-700 text-white font-bold  xl:h-fit px-4 border border-red-700 rounded-lg xl:text-base xl:w-[5em] xl:p-1"
               type="button"
               onClick={handleClick}
             >

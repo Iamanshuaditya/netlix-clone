@@ -17,7 +17,7 @@ module.exports = {
       screens: {
         bigScreen: { max: "2562px" },
         maxWidth: { max: "1024px" },
-        xl: { max: "1024px" },
+        xl: { max: "1025px" },
         "2xl": { min: "640px", max: "767px" },
       },
       colors: {

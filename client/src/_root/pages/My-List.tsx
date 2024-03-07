@@ -15,9 +15,9 @@ function MyList() {
       <Data />
       {searchValues == "" ? (
         <div>
-          <section className="pb-16 pt-10 text-white xl:w-[400%] ">
-            <div className="container flex w-full max-w-screen-2xl flex-col gap-2.5 xl:text-4xl xl:leading-[7.5rem]">
-              <h1 className="text-2xl font-bold sm:text-3xl xl:text-6xl">
+          <section className="pb-16 pt-10 text-white  ">
+            <div className="container flex w-full max-w-screen-2xl flex-col gap-2.5 ">
+              <h1 className="text-2xl font-bold sm:text-3xl ">
                 Your list is empty
               </h1>
               <p className="text-slate-400 dark:text-slate-400">

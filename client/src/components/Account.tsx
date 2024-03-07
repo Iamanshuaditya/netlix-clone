@@ -14,7 +14,7 @@ function Account() {
   return (
     <div className="text-white relative top-10">
       <AccountDetails onPlanChange={handlePlanChange} />
-      <section className="  px-96  ">
+      <section className="  px-96   xl:p-10 2xl:p-20">
         <div>
           <div className="space-y-2.5 ">
             <h1 className="text-3xl sm:text-4xl">Account</h1>

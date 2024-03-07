@@ -20,7 +20,7 @@ function Movies() {
   return (
     <div className="">
       <Data />
-      <div className=" text-white grid  gap-48 absolute top-[34em]  xl:gap-[48em] xl:top-[125em]  ">
+      <div className=" text-white grid  gap-48 absolute top-[34em]   xl:top-[36em] xl:gap-72 ">
         <Card title="Trending Now" top={30} movieData={trending} />
         <Card title="Top Rated" top={44} movieData={topRated} />
         <Card title="Action Thrillers" top={58} movieData={action} />

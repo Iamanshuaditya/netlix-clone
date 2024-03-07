@@ -10,7 +10,7 @@ function SearchCard() {
   const searchResults = useRecoilValue(SearchResultsState);
 
   return (
-    <div className="grid grid-cols-4 gap-4 p-4 xl:w-[400%]">
+    <div className="grid grid-cols-4 gap-4 p-4 xl:grid-cols-1 ">
       <Image movieData={searchResults} />
     </div>
   );

@@ -59,26 +59,26 @@ function Card({
   return (
     <div>
       <div className={`top-[${top}em] maxWidth:absolute z-50  `}>
-        <h1 className="font-semibold text-[1.2500em] ml-20 mb-2  xl:text-6xl xl:mb-10  xl:w-[150%] ]">
+        <h1 className="font-semibold text-[1.2500em] ml-20 mb-2  xl:w-[150%] xl:ml-5">
           {title}
         </h1>
         <div
-          className="text-white bg-[#00000088] z-50  w-8 justify-center opacity-0  left-[5em]  grid items-center  absolute hover:opacity-100 transition duration-150  h-[11.5em]"
+          className="text-white bg-[#00000088] z-50  w-8 justify-center opacity-0  left-[5em]  grid items-center  absolute hover:opacity-100 transition duration-150  h-[11.5em] xl:left-4"
           onClick={leftClick}
         >
           <FaChevronLeft />
         </div>
         <div
-          className="absolute left-20 overflow-y-scroll   "
+          className="absolute left-20 overflow-y-scroll xl:left-4 "
           ref={scrollContainerRef}
           style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
         >
-          <div className="w-[75rem] flex  xl:w-[243em] ">
+          <div className="w-[75rem] flex xl:w-[19rem]">
             <Image movieData={movieData} />
           </div>
         </div>
         <div
-          className="text-white bg-[#00000088] z-50    hover:opacity-100 w-8 justify-center  opacity-0 h-[11.5em] left-[78em]  grid items-center absolute    transition duration-150"
+          className="text-white bg-[#00000088] z-50    hover:opacity-100 w-8 justify-center  opacity-0 h-[11.5em] left-[78em] xl:left-[18em]  grid items-center absolute    transition duration-150"
           onClick={handleRightClick}
         >
           <FaChevronRight />
@@ -119,7 +119,7 @@ function Image({ movieData }: { movieData: Movie[] }) {
           key={index}
           src={`https://image.tmdb.org/t/p/w500${backdropPath}`}
           alt="Backdrop"
-          className="m-1 hover:scale-110 transition duration-150 ease-out xl:w-[90em] xl:h-[24em] w-[28em] h-[11em] "
+          className="m-1 hover:scale-110 transition duration-150 ease-out  w-[28em] h-[11em] "
         />
       ))}
     </>

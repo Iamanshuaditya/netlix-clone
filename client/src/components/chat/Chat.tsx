@@ -65,7 +65,6 @@ const Chat: React.FC<ChatProps> = ({ apiKey, modelName }) => {
       parts: message.parts.map((part) => ({ text: part.text })),
     }));
 
-    // Send the user's message to the generative model
     const chat = model.startChat({
       generationConfig,
       safetySettings,
@@ -75,7 +74,6 @@ const Chat: React.FC<ChatProps> = ({ apiKey, modelName }) => {
     const result = await chat.sendMessage(userInput);
     const response = result.response;
 
-    // Add the response from the model to the conversation with identifier
     setConversation((prevConversation) => [
       ...prevConversation,
       { role: "netflix-gpt", parts: [{ text: response.text() }] },
