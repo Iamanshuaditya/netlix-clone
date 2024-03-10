@@ -7,17 +7,21 @@ function Footer() {
   return (
     <>
       <footer
-        className="relative bottom-0 w-full text-[#a3a3a3] grid   gap-4  justify-center xl:mt- top-[50em] xl:top-[50em]   xl:gap-8 items-center
+        className="relative bottom-0 w-full text-[#a3a3a3] grid  gap-4 justify-center xl:mt- top-[50em] xl:top-[50em]  tab:top-[72em]  xl:gap-8 items-center
+        tab:w-[48em]
       "
       >
         <div className="grid grid-cols-8 text-white items-start w-[14em]     xl:gap-0 gap-6 mb-3 maxWidth:justify-normal  ">
-          <FiFacebook size={26} className="col-start-1 xl:col-start-1" />
-          <FaInstagram size={26} className="" />
-          <CiTwitter size={26} className="" />
-          <PiYoutubeLogoThin size={26} className="" />
+          <FiFacebook
+            size={26}
+            className="col-start-1 xl:col-start-1 tab:col-start-4"
+          />
+          <FaInstagram size={26} />
+          <CiTwitter size={26} />
+          <PiYoutubeLogoThin size={26} />
         </div>
-        <div className="text-[#a3a3a3]  grid w-[87em] justify-evenly text-sm   bigScreen:w-[18em] xl:w-[70em]">
-          <ul className="grid xl:grid-cols-2 gap-3  xl:w-[100%] 2xl:grid-cols-3 grid-cols-4 xl:leading-[2.5em] 2xl:w-[87%] w-[65em]  fot">
+        <div className="text-[#a3a3a3]  grid w-[87em] justify-evenly text-sm  tab:w-[46em]  bigScreen:w-[18em] xl:w-[70em]">
+          <ul className="grid xl:grid-cols-2 gap-3  xl:w-[100%] 2xl:grid-cols-3 grid-cols-4 xl:leading-[2.5em] 2xl:w-[87%] w-[65em] tab:grid-cols-3   fot">
             <li>
               <a href="#">Audio Description</a>
             </li>
@@ -67,7 +71,7 @@ function Footer() {
           @ 2023-2024 Netflx.
         </p>
 
-        <p className="flex items-center justify-center xl:text-base">
+        <p className="flex items-center justify-center xl:text-base ">
           Developed by <br />
           <a href="#" className="hover:text-white ml-2 font-semibold">
             Anshu Aditya

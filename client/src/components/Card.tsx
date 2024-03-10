@@ -59,7 +59,7 @@ function Card({
   return (
     <div>
       <div className={`top-[${top}em] maxWidth:absolute z-50  `}>
-        <h1 className="font-semibold text-[1.2500em] ml-20 mb-2  xl:w-[150%] xl:ml-5">
+        <h1 className="font-semibold text-[1.2500em] ml-20 mb-2  xl:w-[150%] xl:ml-5 tab:text-3xl tab:w-[180%]">
           {title}
         </h1>
         <div
@@ -73,12 +73,12 @@ function Card({
           ref={scrollContainerRef}
           style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
         >
-          <div className="w-[75rem] flex xl:w-[19rem]">
+          <div className="w-[75rem] flex xl:w-[19rem] tab:w-[45em]">
             <Image movieData={movieData} />
           </div>
         </div>
         <div
-          className="text-white bg-[#00000088] z-50    hover:opacity-100 w-8 justify-center  opacity-0 h-[11.5em] left-[78em] xl:left-[18em]  grid items-center absolute    transition duration-150"
+          className="text-white bg-[#00000088] z-50    hover:opacity-100 w-8 justify-center  opacity-0 h-[11.5em] left-[78em] xl:left-[18em]  grid items-center absolute    transition duration-150 tab:left-[45em]"
           onClick={handleRightClick}
         >
           <FaChevronRight />

@@ -78,9 +78,9 @@ function Header() {
   }
 
   return (
-    <nav className="sticky top-0 w-full z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4  xl:p-0 ">
+    <nav className="sticky top-0  z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4  xl:p-0  tab:w-[48em] w-[84em]  xl:w-[27em]">
       <SearchResults />
-      <div className="grid grid-cols-5   justify-between items-center bg-[#171717]  h-16 mr-16   text-white w-full bg-transparent ml-0">
+      <div className="grid grid-cols-5   justify-between items-center bg-[#171717]   h-16 mr-16   text-white w-full bg-transparent ml-0">
         <NewMenu />
         <div className="grid grid-cols-[1fr,1fr] justify-between w-[35rem] items-center text-[#cbd5ffe1] maxWidth:hidden">
           <img
@@ -158,7 +158,7 @@ function Header() {
           {!location.pathname.includes("/login") && (
             <Search
               size={20}
-              className="absolute  cursor-pointer  "
+              className="absolute  cursor-pointer tab:justify-end tab:col-start-2 "
               onClick={toggleSearch}
             />
           )}
@@ -167,7 +167,7 @@ function Header() {
             onChange={handleSearch}
             type="text"
             placeholder="Search"
-            className={`bg-transparent p-1 pl-10 transition-all duration-300 col-start-1 col-end-3 xl:w-16 xl:pl-10 xl:col-start-1 xl:text-base   ${
+            className={`bg-transparent p-1 pl-10 transition-all duration-300 col-start-1  tab:w-28 col-end-3 xl:w-16 xl:pl-10 xl:col-start-1 xl:text-base tab:col-start-2  ${
               isSearchOpen ? "w-32" : "w-0"
             }`}
             style={{ visibility: isSearchOpen ? "visible" : "hidden" }}

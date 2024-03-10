@@ -26,7 +26,7 @@ function TvShow() {
       {isDrawerOpen ? <Drawer /> : ""}
 
       {searchValues == "" ? (
-        <div className=" grid gap-52 text-white mt-5 xl:gap-[37rem] xl:mt-10">
+        <div className=" grid gap-52 text-white mt-5 xl:gap-[37rem] xl:mt-10 tab tab:gap-[17rem]">
           <TvShows />
           <Card title="Trending Now" top={30} movieData={trending} />
           <Card title="Top Rated " top={30} movieData={topRatedShows} />

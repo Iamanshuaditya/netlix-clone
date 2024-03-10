@@ -5,20 +5,20 @@ import RootLayout from "./_root/RootLayout";
 import Login from "./_root/pages/Login";
 import Plans from "./components/Plans";
 import { userEmailState } from "./store/atoms/email";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import Account from "./components/Account";
 import HelpCenter from "./_root/pages/HelpCenter";
 import TvShow from "./_root/pages/TvShow";
-
 import NewPopular from "./_root/pages/New-Popular";
 import MyList from "./_root/pages/My-List";
 import MoviesPage from "./_root/pages/MoviesPage";
 import AddProfile from "./components/AddProfile";
+import { username } from "./store/atoms/userName";
 
 function App() {
-  const [storedEmail, setStoredEmail] = useState(null);
+  const [storedEmail, setStoredEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const storedDataString: string | null = localStorage.getItem(
@@ -31,18 +31,23 @@ function App() {
     setStoredEmail(email);
   }, []);
   const [, setUserEmail] = useRecoilState(userEmailState);
+  const setUserName = useSetRecoilState(username);
+
   const auth = getAuth();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log(user.displayName);
         setUserEmail(user.email);
+        setUserName(user.displayName);
       } else {
         setUserEmail(null);
+        setUserName(null);
       }
     });
 
     return () => unsubscribe();
-  }, [auth, setUserEmail]);
+  }, [auth, setUserEmail, setUserName]);
 
   return (
     <BrowserRouter>

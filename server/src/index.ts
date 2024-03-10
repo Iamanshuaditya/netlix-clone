@@ -1,10 +1,11 @@
 import CheckoutRouter from './routes/checkout'
 import CustomerRouter from './routes/customer'
 import portalRoute from './routes/portal'
+import CreateUserRoute from './routes/createUser'
 import subscriptionRoute from './routes/subscription'
 import webhookRoute from './routes/webhook'
 import express, { Request, Response } from 'express';
-import { admin } from './services/firebaseService'
+ import checkuserRoute from './routes/checkUser'
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -25,7 +26,9 @@ app.use(CheckoutRouter)
 app.use(CustomerRouter)
 app.use(portalRoute)
 app.use(subscriptionRoute)
+app.use(CreateUserRoute)
 app.use(webhookRoute)
+app.use(checkuserRoute)
 
 
 app.listen(4242, () => console.log('Running on port 4242'));

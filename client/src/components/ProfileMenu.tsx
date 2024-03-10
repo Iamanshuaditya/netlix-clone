@@ -24,7 +24,7 @@ function ProfileMenu() {
   return (
     <div className="grid">
       <button
-        className="inline-flex items-center justify-center rounded-md font-medium ring-offset-slate-900 transition-colors focus:outline-none focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 bg-transparent text-slate-100 hover:text-slate-100 data-[state=open]:bg-transparent dark:text-slate-100 dark:hover:text-slate-100 dark:data-[state=open]:bg-transparent h-auto shrink-0 text-base hover:bg-transparent focus:ring-0 hover:dark:bg-neutral-800 [&amp;[data-state=open]>svg]:rotate-180"
+        className="inline-flex items-center justify-center rounded-md font-medium ring-offset-slate-900 transition-colors focus:outline-none focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 bg-transparent text-slate-100 hover:text-slate-100 data-[state=open]:bg-transparent dark:text-slate-100 dark:hover:text-slate-100 dark:data-[state=open]:bg-transparent h-auto shrink-0 text-base hover:bg-transparent focus:ring-0 hover:dark:bg-neutral-800 [&amp;[data-state=open]>svg]:rotate-180 tab:justify-end"
         aria-label="Account menu trigger"
         type="button"
         id="radix-:r2:"
@@ -38,13 +38,13 @@ function ProfileMenu() {
           loading="lazy"
           decoding="async"
           data-nimg="1"
-          className="rounded-sm object-cover transition-opacity hover:opacity-80 "
+          className="rounded-sm object-cover transition-opacity hover:opacity-80  tab:w-1/2"
           src="https://res.cloudinary.com/dasxoa9r4/image/upload/v1682057683/netflx-web/gqeggax72gql50gq3ag0.webp"
           style={{ color: "transparent" }}
         ></img>
       </button>
       {isMenuOpen && (
-        <div className="absolute xl:top-[5em] right-5 top-24 ">
+        <div className="absolute xl:top-[5em] right-5 top-24 tab:text-2xl ">
           <div
             data-side="bottom"
             data-align="end"
@@ -66,7 +66,7 @@ function ProfileMenu() {
               data-radix-collection-item=""
               href="/profiles"
             >
-              <Pencil className="text-[#94a3b8]   " />
+              <Pencil className="text-[#94a3b8]  tab:w-8  tab:h-8 " />
               <span className="line-clamp-1">Manage Profiles</span>
             </a>
             <span
@@ -75,7 +75,7 @@ function ProfileMenu() {
               data-orientation="vertical"
               data-radix-collection-item=""
             >
-              <LogOut className="text-[#94a3b8]  mr-2 w-4 h-4 " />
+              <LogOut className="text-[#94a3b8]  mr-2 w-4 h-4  tab:w-8  tab:h-8  " />
               <span className="line-clamp-1">Exit Profile</span>
             </span>
             <a
@@ -85,7 +85,7 @@ function ProfileMenu() {
               data-radix-collection-item=""
               href="/account"
             >
-              <User className="text-[#94a3b8]   mr-2 w-4 h-4" />
+              <User className="text-[#94a3b8]   mr-2 w-4 h-4  tab:w-8  tab:h-8 " />
               <span className="line-clamp-1">Account</span>
             </a>
             <a
@@ -95,7 +95,7 @@ function ProfileMenu() {
               data-radix-collection-item=""
               href="/help-centers"
             >
-              <HelpCircle className="text-[#94a3b8]   mr-2 w-4 h-4 " />
+              <HelpCircle className="text-[#94a3b8]   mr-2 w-4 h-4  tab:w-8  tab:h-8 " />
               <span className="line-clamp-1">Help Center</span>
             </a>
             <div

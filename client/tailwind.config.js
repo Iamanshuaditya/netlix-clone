@@ -1,3 +1,4 @@
+/* eslint-disable */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -17,8 +18,13 @@ module.exports = {
       screens: {
         bigScreen: { max: "2562px" },
         maxWidth: { max: "1024px" },
+        tab: { min: "493px", max: "1018px" },
         xl: { max: "1025px" },
-        "2xl": { min: "640px", max: "767px" },
+        "2xl": { min: "640px", max: "798px" },
+      },
+      backgroundSize: {
+        tablet: "48em",
+        mobile: "30.5em",
       },
       colors: {
         border: "hsl(var(--border))",
