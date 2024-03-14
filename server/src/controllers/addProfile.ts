@@ -12,8 +12,12 @@ async function addprofile(avatar: string, name: string, userId: number) {
         })
 
         console.log(res)
+        return { success: true, message: 'Profile created successfully', profile: res };
+
     } catch (error) {
         console.log(error)
+        return { success: false, message: 'Internal server error' };
+
     }
 }
 

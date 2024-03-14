@@ -5,7 +5,7 @@ import RootLayout from "./_root/RootLayout";
 import Login from "./_root/pages/Login";
 import Plans from "./components/Plans";
 import { userEmailState } from "./store/atoms/email";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import Account from "./components/Account";
@@ -16,6 +16,7 @@ import MyList from "./_root/pages/My-List";
 import MoviesPage from "./_root/pages/MoviesPage";
 import AddProfile from "./components/AddProfile";
 import { username } from "./store/atoms/userName";
+import Whoiswatching from "./_root/pages/Whoiswatching";
 
 function App() {
   const [storedEmail, setStoredEmail] = useState<string | null>(null);
@@ -31,13 +32,14 @@ function App() {
     setStoredEmail(email);
   }, []);
   const [, setUserEmail] = useRecoilState(userEmailState);
-  const setUserName = useSetRecoilState(username);
+  const [, setUserName] = useRecoilState(username);
 
   const auth = getAuth();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log(user.displayName);
+
         setUserEmail(user.email);
         setUserName(user.displayName);
       } else {
@@ -76,8 +78,9 @@ function App() {
             </RootLayout>
           }
         />
-        <Route path="/profiles" element={<Profile />} />
-        <Route path="/profiles/add" element={<AddProfile />} />
+        <Route path="/manageprofile" element={<Profile />} />
+        <Route path="/manageprofile/add" element={<AddProfile />} />
+        <Route path="/whoiswatching" element={<Whoiswatching />} />
       </Routes>
     </BrowserRouter>
   );

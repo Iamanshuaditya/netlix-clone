@@ -6,6 +6,7 @@ import { DrawerState } from "@/store/atoms/Drawer";
 import SearchState from "@/store/atoms/Search";
 import { userEmailState } from "@/store/atoms/email";
 import { username } from "@/store/atoms/userName";
+import userId from "@/store/atoms/userid";
 import axios from "axios";
 
 import { useEffect } from "react";
@@ -13,11 +14,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 function Home() {
   const isDrawerOpen = useRecoilValue(DrawerState);
+
   const [searchValues] = useRecoilState(SearchState);
+  console.log(searchValues);
   const email = useRecoilValue(userEmailState);
   const name = useRecoilValue(username);
-  console.log(name);
-
+  const [, setId] = useRecoilState(userId);
   useEffect(() => {
     if (isDrawerOpen) {
       document.body.classList.add("overflow-hidden");
@@ -31,12 +33,15 @@ function Home() {
   }, [isDrawerOpen]);
 
   useEffect(() => {
-    if (email && email[0] !== "") {
+    if (email !== null && email !== undefined) {
       axios
-        .post("http://localhost:4242/checkuser", { email: email[0] })
+        .post("http://localhost:4242/checkuser", { email: email })
         .then((res) => {
-          if (res.data.email) {
-            console.log("Email found:", res.data.email);
+          console.log(res);
+          if (res.data[0].email) {
+            console.log("Email found:", res.data[0].email);
+            console.log(res.data[0].id);
+            setId(res.data[0].id);
           } else {
             axios
               .post("http://localhost:4242/createuser", {
@@ -52,7 +57,7 @@ function Home() {
           console.error("Error:", error);
         });
     }
-  }, [email, name]);
+  }, [email, name, setId]);
 
   return (
     <div className="text-white">

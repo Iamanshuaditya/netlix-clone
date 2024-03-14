@@ -19,7 +19,7 @@ model Profile {
   name   String
   avatar String
   user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+  userId Int
   movies Movie[]
 }
 

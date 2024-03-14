@@ -5,7 +5,12 @@ import CreateUserRoute from './routes/createUser'
 import subscriptionRoute from './routes/subscription'
 import webhookRoute from './routes/webhook'
 import express, { Request, Response } from 'express';
- import checkuserRoute from './routes/checkUser'
+import checkuserRoute from './routes/checkUser'
+import addProfileRoute from './routes/addprofileRoute'
+import deleteProfile from './routes/deleteProfileRoute'
+import addMovies from './routes/addmoviesRoute'
+import getallmovies from './routes/getallmovies'
+import getallProfile from './routes/getallProfileRoute'
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +28,11 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.use(CheckoutRouter)
+app.use(getallProfile)
+app.use(getallmovies)
+app.use(addMovies)
+app.use(deleteProfile)
+app.use(addProfileRoute)
 app.use(CustomerRouter)
 app.use(portalRoute)
 app.use(subscriptionRoute)

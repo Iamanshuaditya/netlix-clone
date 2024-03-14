@@ -1,9 +1,16 @@
+import userId from "@/store/atoms/userid";
+import axios from "axios";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 function AddProfile() {
   const [profilePage, setProfilePage] = useState(true);
+  const [name, setName] = useState("");
+  const userID = useRecoilValue(userId);
+  console.log(userID);
+
   const [selectedImage, setSelectedImage] = useState(
     "https://res.cloudinary.com/dasxoa9r4/image/upload/v1682057683/netflx-web/jsnafhixioxnblla2b1n.webp"
   );
@@ -16,7 +23,21 @@ function AddProfile() {
   }
   const navigate = useNavigate();
   function handleCancel() {
-    navigate("/profiles");
+    navigate("/manageprofile");
+  }
+
+  async function handleContinue() {
+    try {
+      const res = await axios.post("http://localhost:4242/addprofile", {
+        avatar: selectedImage,
+        userID: userID,
+        name: name,
+      });
+
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
   }
   return (
     <div>
@@ -59,6 +80,7 @@ function AddProfile() {
                   placeholder="Name"
                   type="text"
                   name="name"
+                  onChange={(e) => setName(e.target.value)}
                 />
               </fieldset>
             </div>
@@ -70,6 +92,7 @@ function AddProfile() {
             <div className="mt-2 flex flex-wrap items-center gap-4">
               <button
                 type="button"
+                onClick={handleContinue}
                 className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 rounded-none bg-slate-50 text-slate-900 hover:bg-red-600 hover:text-slate-100 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-red-600 dark:hover:text-slate-100 px-4 py-2"
                 aria-label="Add profile"
               >
