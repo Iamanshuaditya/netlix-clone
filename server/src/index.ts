@@ -11,6 +11,7 @@ import deleteProfile from './routes/deleteProfileRoute'
 import addMovies from './routes/addmoviesRoute'
 import getallmovies from './routes/getallmovies'
 import getallProfile from './routes/getallProfileRoute'
+import updateProfileRoute from './routes/updateProfileRoute'
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +29,7 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.use(CheckoutRouter)
+app.use(updateProfileRoute)
 app.use(getallProfile)
 app.use(getallmovies)
 app.use(addMovies)

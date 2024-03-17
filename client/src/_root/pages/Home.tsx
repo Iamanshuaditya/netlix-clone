@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Banner from "@/components/Banner";
 import Drawer from "@/components/Drawer";
 import Movies from "@/components/Movies";
@@ -8,18 +9,16 @@ import { userEmailState } from "@/store/atoms/email";
 import { username } from "@/store/atoms/userName";
 import userId from "@/store/atoms/userid";
 import axios from "axios";
-
-import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 function Home() {
   const isDrawerOpen = useRecoilValue(DrawerState);
-
   const [searchValues] = useRecoilState(SearchState);
   console.log(searchValues);
   const email = useRecoilValue(userEmailState);
   const name = useRecoilValue(username);
-  const [, setId] = useRecoilState(userId);
+  const [, setUserID] = useRecoilState(userId);
+
   useEffect(() => {
     if (isDrawerOpen) {
       document.body.classList.add("overflow-hidden");
@@ -33,6 +32,13 @@ function Home() {
   }, [isDrawerOpen]);
 
   useEffect(() => {
+    const storedUserID = localStorage.getItem("userID");
+    if (storedUserID) {
+      setUserID(parseInt(storedUserID));
+    }
+  }, [setUserID]);
+
+  useEffect(() => {
     if (email !== null && email !== undefined) {
       axios
         .post("http://localhost:4242/checkuser", { email: email })
@@ -41,7 +47,9 @@ function Home() {
           if (res.data[0].email) {
             console.log("Email found:", res.data[0].email);
             console.log(res.data[0].id);
-            setId(res.data[0].id);
+            setUserID(res.data[0].id);
+
+            localStorage.setItem("userID", res.data[0].id);
           } else {
             axios
               .post("http://localhost:4242/createuser", {
@@ -57,12 +65,12 @@ function Home() {
           console.error("Error:", error);
         });
     }
-  }, [email, name, setId]);
+  }, [email, name, setUserID]);
 
   return (
     <div className="text-white">
       {isDrawerOpen ? <Drawer /> : ""}
-      {searchValues == "" ? (
+      {searchValues === "" ? (
         <>
           {" "}
           <Banner />

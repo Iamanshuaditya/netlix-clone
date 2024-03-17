@@ -1,13 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-async function deleteProfile(profileId: number, userId: number) {
-    console.log(userId)
+async function deleteProfile(id: number) {
+ 
     try {
         const res = await prisma.profile.delete({
             where: {
-                userId : userId,
-                id: profileId
+                id
             }
         });
 

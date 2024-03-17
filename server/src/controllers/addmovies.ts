@@ -1,13 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-async function addMovies(profileId: number, title: string) {
+async function addMovies(title: string,profileId: number) {
     try {
         const res = await prisma.movie.create({
             data: {
-                
-                profileId,
-                title,  
+                title,
+                profileId
         }
         })
         

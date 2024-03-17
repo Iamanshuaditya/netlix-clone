@@ -17,7 +17,7 @@ model User {
 model Profile {
   id     Int     @id @default(autoincrement())
   name   String
-  avatar String
+  avatar Int     @unique
   user   User    @relation(fields: [userId], references: [id])
   userId Int
   movies Movie[]
@@ -26,6 +26,6 @@ model Profile {
 model Movie {
   id        Int     @id @default(autoincrement())
   title     String
-  profile   Profile @relation(fields: [profileId], references: [id])
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId Int
 }

@@ -1,15 +1,11 @@
-import userId from "@/store/atoms/userid";
 import axios from "axios";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 
 function AddProfile() {
   const [profilePage, setProfilePage] = useState(true);
   const [name, setName] = useState("");
-  const userID = useRecoilValue(userId);
-  console.log(userID);
 
   const [selectedImage, setSelectedImage] = useState(
     "https://res.cloudinary.com/dasxoa9r4/image/upload/v1682057683/netflx-web/jsnafhixioxnblla2b1n.webp"
@@ -26,11 +22,13 @@ function AddProfile() {
     navigate("/manageprofile");
   }
 
+  const userId = localStorage.getItem("userID");
+
   async function handleContinue() {
     try {
       const res = await axios.post("http://localhost:4242/addprofile", {
         avatar: selectedImage,
-        userID: userID,
+        userId: userId ? parseInt(userId) : null,
         name: name,
       });
 

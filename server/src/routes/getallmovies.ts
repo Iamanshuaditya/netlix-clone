@@ -3,9 +3,10 @@ import { Request, Response } from "express";
 import getallMovies from "../controllers/getallmovies";
 const router = express.Router();
 
-router.get('/getallmovies', async (req: Request, res: Response) => {
+router.get('/getallmovies/:profileId', async (req: Request, res: Response) => {
+    const profileId = Number(req.params.profileId);
     try {
-        const response = await getallMovies();
+        const response = await getallMovies(profileId);
         console.log(response);
         res.json(response);
     } catch (error) {

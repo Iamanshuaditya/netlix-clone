@@ -5,12 +5,9 @@ const router = express.Router();
 
 router.delete('/deleteProfile/:profileId', async (req: Request, res: Response) => {
     const id = parseInt(req.params.profileId);
-    const userId = req.body.userId
-
     try {
-        const response = await deleProfile(id,userId);
-        res.json(response); 
-        
+        const response = await deleProfile(id);
+        res.json({"Profile Deleted successfully": response}); 
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Internal server error" }); 

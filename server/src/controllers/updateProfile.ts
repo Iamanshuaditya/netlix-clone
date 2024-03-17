@@ -2,18 +2,18 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
  
 
-async function updateProfile(userId:number,name:string,avatar: string,) {
+async function updateProfile(profileId:number,name:string,avatar: string,) {
     try {
         const res = await prisma.profile.update({
             where: {
-              userId : userId
+               id:profileId
             },
+            
             data: {
                 name,
-                avatar,
+                avatar
 
 }
-            
         })
 
         console.log(res)
