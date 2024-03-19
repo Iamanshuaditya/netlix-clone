@@ -17,6 +17,7 @@ import MoviesPage from "./_root/pages/MoviesPage";
 import AddProfile from "./components/AddProfile";
 import { username } from "./store/atoms/userName";
 import Whoiswatching from "./_root/pages/Whoiswatching";
+import UpdatProfile from "./_root/pages/UpdatProfile";
 
 function App() {
   const [storedEmail, setStoredEmail] = useState<string | null>(null);
@@ -78,9 +79,16 @@ function App() {
             </RootLayout>
           }
         />
-        <Route path="/manageprofile" element={<Profile />} />
-        <Route path="/manageprofile/add" element={<AddProfile />} />
         <Route path="/whoiswatching" element={<Whoiswatching />} />
+        <Route
+          path="/manageprofile/:encodedString"
+          element={<UpdatProfile />}
+        />
+        <Route path="manageprofile/add" element={<AddProfile />} />
+        <Route path="/manageprofile" element={<Profile />}>
+          <Route path="add" element={<AddProfile />} />
+          <Route path=":encodedString" element={<UpdatProfile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

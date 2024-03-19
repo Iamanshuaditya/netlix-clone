@@ -31,7 +31,11 @@ function AddProfile() {
         userId: userId ? parseInt(userId) : null,
         name: name,
       });
-
+      if (res.status >= 200 && res.status < 300) {
+        window.location.href = "/manageprofile";
+      } else {
+        console.error("Update profile failed.");
+      }
       console.log(res.data);
     } catch (error) {
       console.error(error);
