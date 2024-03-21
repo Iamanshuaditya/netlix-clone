@@ -11,9 +11,11 @@ import userId from "@/store/atoms/userid";
 import axios from "axios";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function Home() {
   const isDrawerOpen = useRecoilValue(DrawerState);
+  const [isLoading, setisLoading] = useState(true);
   const [newuser, SetnewUser] = useState(false);
   const [, setUserEmail] = useRecoilState(userEmailState);
   const [, setUserName] = useRecoilState(username);
@@ -98,9 +100,29 @@ function Home() {
       checkuser();
       createuser();
       console.log(newuser);
+      setisLoading(false);
     }
   }, [email, name, setUserID, newuser]);
 
+  function SkeletonCard() {
+    return (
+      <div className="flex flex-col space-y-3 absolute left-20 top-28">
+        <Skeleton className="h-[5em] w-[10em] rounded-xl bg-[#1B1B1E]  " />
+        <div className="space-y-2 ">
+          <Skeleton className="h-4 w-[250px] bg-[#1B1B1E]" />
+          <Skeleton className="h-4 w-[200px] bg-[#1B1B1E]" />
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="text-white">
+        <SkeletonCard />
+      </div>
+    );
+  }
   return (
     <div className="text-white">
       {isDrawerOpen ? <Drawer /> : ""}

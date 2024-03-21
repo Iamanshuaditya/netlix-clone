@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import netflixGpt from "../../../public/images/netflixgpt.png";
+import netflixGpt from "../../images/netflixgpt.png";
 import Chat from "./Chat";
 interface GptProps {
   onclick: () => void;

@@ -21,6 +21,7 @@ import UpdatProfile from "./_root/pages/UpdatProfile";
 
 function App() {
   const [storedEmail, setStoredEmail] = useState<string | null>(null);
+  const [storedProfileId, setStoredProfileId] = useState<string | null>(null);
 
   useEffect(() => {
     const storedDataString: string | null = localStorage.getItem(
@@ -31,7 +32,12 @@ function App() {
 
     const email = storedData?.email;
     setStoredEmail(email);
+
+    // Check if profile ID is saved in local storage
+    const profileId = localStorage.getItem("profileId");
+    setStoredProfileId(profileId);
   }, []);
+
   const [, setUserEmail] = useRecoilState(userEmailState);
   const [, setUserName] = useRecoilState(username);
 
@@ -64,7 +70,13 @@ function App() {
                 <Route
                   path="/login"
                   element={
-                    storedEmail == null || "" ? <Login /> : <Navigate to="/" />
+                    storedEmail == null || "" ? (
+                      <Login />
+                    ) : storedProfileId ? (
+                      <Navigate to="/" />
+                    ) : (
+                      <Navigate to="/whoiswatching" />
+                    )
                   }
                 />
                 <Route path="/login/plans" element={<Plans />} />
@@ -73,7 +85,6 @@ function App() {
                 <Route path="/tv-shows" element={<TvShow />} />
                 <Route path="/movies" element={<MoviesPage />} />
                 <Route path="/new-and-popular" element={<NewPopular />} />
-                my-list
                 <Route path="/my-list" element={<MyList />} />
               </Routes>
             </RootLayout>

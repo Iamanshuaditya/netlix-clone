@@ -47,7 +47,7 @@ function Plans() {
           const subscriptionStatus = data.subscriptionStatus;
 
           if (subscriptionStatus) {
-            navigate("/profile");
+            navigate("/whoiswatching");
           } else {
             navigate("/login/plans");
           }

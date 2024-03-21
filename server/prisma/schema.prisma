@@ -17,15 +17,25 @@ model User {
 model Profile {
   id     Int     @id @default(autoincrement())
   name   String
-  avatar Int     @unique
+  avatar String
   user   User    @relation(fields: [userId], references: [id])
   userId Int
   movies Movie[]
 }
 
 model Movie {
-  id        Int     @id @default(autoincrement())
-  title     String
-  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  profileId Int
+  id               Int       @id @default(autoincrement())
+  title            String
+  backdropPath     String?
+  genreIds         Int[]
+  originalLanguage String?
+  originalTitle    String?
+  overview         String?
+  popularity       Float?
+  posterPath       String?
+  releaseDate      DateTime?
+  tmdbId           Int?
+  adult            Boolean?
+  profile          Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId        Int
 }

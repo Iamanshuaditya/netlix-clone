@@ -51,9 +51,9 @@ function Banner() {
   return (
     <div className="relative top-0 ">
       <RandomBanner />
-      <div className="relative  overflow-hidden object-cover xl:top-[-4em] tab:w-[48em] tab:top-[-6em] top-[-4em] xl:w-[27em]  w-[84em]">
+      <div className="relative  overflow-hidden object-cover xl:top-[-4em] tab:w-[48em] tab:top-[-6em] top-[-4em] xl:w-[27em]  w-[84em] ">
         <div
-          className="opacity-20  bg-no-repeat h-[100em]  object-cover banner tab:bg-tablet xl:bg-mobile  "
+          className="opacity-20  bg-no-repeat h-[100em]  object-cover banner tab:bg-tablet xl:bg-mobile   "
           style={{
             backgroundImage: `url("https://image.tmdb.org/t/p/w500${poster}")`,
             backgroundSize: "84.5em",

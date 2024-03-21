@@ -26,6 +26,38 @@ opacity: 0.8;
     
  }
 
-  
+@keyframes spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
  
+.loading {
+	width: 1.2em;
+	height: 1.2em;
+}
+
+ 
+.loading .maskedCircle {
+	width: 1.2em;
+	height: 1.2em;
+	border-radius: 0.75em;
+	border: 0.1875em solid white;
+}
+
+ 
+.loading .mask {
+	width: 0.9em;
+	height: 0.9em;
+	overflow: hidden;
+}
+
+ 
+.loading .spinner {
+	width: 1.2em;
+	height: 1.2em;
+	animation: spin 1s infinite linear;
+}
+
+
  

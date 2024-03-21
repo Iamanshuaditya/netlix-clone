@@ -25,7 +25,7 @@
     "@types/node": "^20.11.16",
     "@types/pg": "^8.11.1",
     "nodemon": "^3.0.3",
-    "prisma": "^5.10.2",
+    "prisma": "^5.11.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }

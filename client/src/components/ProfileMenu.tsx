@@ -64,20 +64,21 @@ function ProfileMenu() {
               className="relative flex cursor-default select-none items-center rounded-sm  py-1.5  px-2  font-medium outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-neutral-700 focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
               data-orientation="vertical"
               data-radix-collection-item=""
-              href="/whoiswatching "
+              href="/manageprofile "
             >
               <Pencil className="text-[#94a3b8]  tab:w-8  tab:h-8 " />
               <span className="line-clamp-1">Manage Profiles</span>
             </a>
-            <span
+            <a
               role="menuitem"
               className="relative flex cursor-default select-none items-center rounded-sm  py-1.5   px-2  font-medium outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-neutral-700 focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 "
               data-orientation="vertical"
               data-radix-collection-item=""
+              href="/whoiswatching"
             >
               <LogOut className="text-[#94a3b8]  mr-2 w-4 h-4  tab:w-8  tab:h-8  " />
               <span className="line-clamp-1">Exit Profile</span>
-            </span>
+            </a>
             <a
               role="menuitem"
               className="relative flex cursor-default select-none items-center rounded-sm py-1.5  px-2  font-medium outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-neutral-700 focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 "

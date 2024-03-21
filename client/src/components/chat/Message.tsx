@@ -1,5 +1,5 @@
 import { CircleUser } from "lucide-react";
-import netflixGpt from "../../../public/images/netflixgpt.png";
+import netflixGpt from "../../images/netflixgpt.png";
 
 interface MessageProps {
   message: { role: string; parts: { text: string }[] };

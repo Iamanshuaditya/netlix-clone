@@ -13,6 +13,7 @@ import getallmovies from './routes/getallmovies'
 import getallProfile from './routes/getallProfileRoute'
 import updateProfileRoute from './routes/updateProfileRoute'
 import getProfileRouter from './routes/getProfileRouter'
+import deleteMovies from './routes/deletemoviesRoute'
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -43,6 +44,7 @@ app.use(subscriptionRoute)
 app.use(CreateUserRoute)
 app.use(webhookRoute)
 app.use(checkuserRoute)
+app.use(deleteMovies)
 
 
 app.listen(4242, () => console.log('Running on port 4242'));

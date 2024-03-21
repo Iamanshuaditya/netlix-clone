@@ -2,12 +2,19 @@ import axios from "axios";
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { z, ZodError } from "zod";
+
+const profileSchema = z.object({
+  name: z.string().max(20).min(2),
+});
 
 function UpdatProfile() {
   const { encodedString } = useParams();
   const [name, setName] = useState("");
   const [toggle, setToggle] = useState(false);
   const [gameHandler, setgameHandler] = useState("");
+  const [isLoading, setisLoading] = useState(false);
+  const [isLoadingDelete, setisLoadingDelete] = useState(false);
   const [selectedImg, SetselectedImg] = useState(
     "https://res.cloudinary.com/dasxoa9r4/image/upload/v1682057683/netflx-web/jsnafhixioxnblla2b1n.webp"
   );
@@ -17,6 +24,20 @@ function UpdatProfile() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const object = JSON.parse(decodedNumber);
   }
+
+  const Loading = () => {
+    return (
+      <>
+        <div className="loading relative left-1">
+          <div className="spinner">
+            <div className="mask">
+              <div className="maskedCircle"></div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
 
   interface Profile {
     id: number;
@@ -40,9 +61,11 @@ function UpdatProfile() {
     getProfile();
   }, [decodedNumber]);
   async function updateProfile() {
+    const validatedData = profileSchema.parse({ name });
+    setisLoading(true);
     try {
       const requestBody = {
-        name: name,
+        name: validatedData.name,
         avatar: selectedImg,
       };
       const response = await axios.post(
@@ -53,15 +76,25 @@ function UpdatProfile() {
 
       if (response.status >= 200 && response.status < 300) {
         window.location.href = "/manageprofile";
+        setisLoading(false);
       } else {
         console.error("Update profile failed.");
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
+      if (error instanceof ZodError) {
+        const errorMessage = error.errors.map((err) => err.message).join("\n");
+        alert(errorMessage);
+      } else {
+        console.error(error);
+        alert("An error occurred. Please try again.");
+      }
+    } finally {
+      setisLoading(false);
     }
   }
 
   async function deleteProfile() {
+    setisLoadingDelete(true);
     try {
       const response = await axios.delete(
         `http://localhost:4242/deleteProfile/${decodedNumber}`
@@ -70,6 +103,7 @@ function UpdatProfile() {
 
       if (response.status >= 200 && response.status < 300) {
         window.location.href = "/manageprofile";
+        setisLoading(false);
       } else {
         console.error("Update profile failed.");
       }
@@ -219,6 +253,7 @@ function UpdatProfile() {
                     onChange={(e) => setName(e.target.value)}
                     type="text"
                     value={name}
+                    disabled={isLoading}
                     name="name"
                   />
                 </fieldset>
@@ -276,6 +311,7 @@ function UpdatProfile() {
                     onChange={(e) => setgameHandler(e.target.value)}
                     value={gameHandler}
                     name="gameHandle"
+                    disabled={isLoading}
                   />
                 </fieldset>
               </div>
@@ -286,14 +322,29 @@ function UpdatProfile() {
               className="shrink-0 h-[1px] w-full my-2 bg-neutral-700"
             ></div>
             <div className="mt-2 flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                onClick={updateProfile}
-                className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 rounded-none bg-slate-50 text-slate-900 hover:bg-red-600 hover:text-slate-100 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-red-600 dark:hover:text-slate-100 px-4 py-2"
-                aria-label="Save profile"
-              >
-                Save
-              </button>
+              {isLoading ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={updateProfile}
+                    className="inline-flex items-center  cursor-not-allowed justify-center text-sm font-medium ring-offset-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 rounded-none bg-red-600  opacity-50  hover:bg-red-600 text-slate-100 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-red-600 dark:hover:text-slate-100 px-4 py-2"
+                    aria-label="Save profile"
+                  >
+                    Save <Loading />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    onClick={updateProfile}
+                    className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 rounded-none bg-slate-50 text-slate-900 hover:bg-red-600 hover:text-slate-100 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-red-600 dark:hover:text-slate-100 px-4 py-2"
+                    aria-label="Save profile"
+                  >
+                    Save{" "}
+                  </button>
+                </>
+              )}
               <button
                 onClick={handleCancel}
                 className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 border border-slate-700 bg-transparent text-slate-100 hover:bg-slate-800 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800 h-10 px-4 py-2 rounded-none"
@@ -302,14 +353,30 @@ function UpdatProfile() {
               >
                 Cancel
               </button>
-              <button
-                onClick={deleteProfile}
-                className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 border border-slate-700 bg-transparent text-slate-100 hover:bg-slate-800 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800 h-10 px-4 py-2 rounded-none"
-                aria-label="Delete profile"
-                type="button"
-              >
-                Delete Profile
-              </button>
+
+              {isLoadingDelete ? (
+                <>
+                  <button
+                    onClick={deleteProfile}
+                    className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 border opacity-50 cursor-not-allowed border-slate-700 bg-transparent text-slate-100 hover:bg-slate-800 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800 h-10 px-4 py-2 rounded-none"
+                    aria-label="Delete profile"
+                    type="button"
+                  >
+                    Delete Profile <Loading />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={deleteProfile}
+                    className="inline-flex items-center justify-center text-sm font-medium ring-offset-slate-900 transition-colors hover:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-slate-800 border border-slate-700 bg-transparent text-slate-100 hover:bg-slate-800 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800 h-10 px-4 py-2 rounded-none"
+                    aria-label="Delete profile"
+                    type="button"
+                  >
+                    Delete Profile
+                  </button>
+                </>
+              )}
             </div>
           </form>
         </div>

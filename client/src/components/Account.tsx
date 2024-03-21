@@ -1,16 +1,40 @@
 import { userEmailState } from "@/store/atoms/email";
 import AccountDetails from "@/utlis/Account";
+import axios from "axios";
 import { ChevronDown, ChevronRight, ChevronUp, CreditCard } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 function Account() {
   const [plan, setPlan] = useState("");
+  const UserId = localStorage.getItem("UserId");
   const [toggle, setToggle] = useState(false);
+  const [profiles, setProfiles] = useState<Profile[]>([]);
   function handlePlanChange(newplan: string) {
     setPlan(newplan);
   }
   const email = useRecoilValue(userEmailState);
+
+  interface Profile {
+    avatar: string;
+    name: string;
+    id: number;
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4242/getallprofiles/${UserId}`
+        );
+
+        setProfiles(response.data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, [UserId]);
   return (
     <div className="text-white relative top-10">
       <AccountDetails onPlanChange={handlePlanChange} />
@@ -126,19 +150,25 @@ function Account() {
                       className="flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&amp;[data-state=open]>svg]:rotate-180"
                       data-radix-collection-item=""
                     >
-                      <div className="flex items-center gap-4">
-                        <img
-                          alt="Classic profile icon (blue)"
-                          loading="lazy"
-                          width="60"
-                          height="60"
-                          decoding="async"
-                          data-nimg="1"
-                          className="rounded object-cover text-transparent"
-                          src="https://res.cloudinary.com/dasxoa9r4/image/upload/v1682057683/netflx-web/jsnafhixioxnblla2b1n.webp"
-                        ></img>
-                        <p>ansuaditya</p>
-                      </div>
+                      {profiles.map((profile: Profile) => (
+                        <div
+                          className="flex items-center gap-4"
+                          key={profile.id}
+                        >
+                          <img
+                            alt="Classic profile icon (blue)"
+                            loading="lazy"
+                            width="60"
+                            height="60"
+                            decoding="async"
+                            data-nimg="1"
+                            className="rounded object-cover text-transparent"
+                            src={profile.avatar}
+                          ></img>
+                          <p>{profile.name}</p>
+                        </div>
+                      ))}
+
                       {toggle ? (
                         <ChevronUp onClick={() => setToggle(false)} />
                       ) : (

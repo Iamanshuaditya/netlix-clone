@@ -1,4 +1,4 @@
-import netflix from "../../public/images/netflix.png";
+import netflix from "../images/netflix.png";
 import { NavLink, useLocation } from "react-router-dom";
 
 // import { Menu } from "./Menu";
@@ -78,7 +78,7 @@ function Header() {
   }
 
   return (
-    <nav className="sticky top-0  z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4  xl:p-0  tab:w-[48em] w-[84em]  xl:w-[27em]">
+    <nav className="sticky top-0  z-[1000] bg-neutral-900 header bg-transparent pl-20 pr-4  xl:p-0  tab:w-[48em] w-[84em]  xl:w-[20em]">
       <SearchResults />
       <div className="grid grid-cols-5   justify-between items-center bg-[#171717]   h-16 mr-16   text-white w-full bg-transparent ml-0">
         <NewMenu />

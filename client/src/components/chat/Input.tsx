@@ -18,6 +18,7 @@ const Input: React.FC<InputProps> = ({ value, onChange, onSend }) => {
   return (
     <div className="input-container text-white flex relative   ">
       <BaseInput
+        disabled
         type="text"
         placeholder="Type a message..."
         value={value}

@@ -1,20 +1,23 @@
 import { CardValues } from "@/store/atoms/CardValues";
 import { DrawerState } from "@/store/atoms/Drawer";
-import MovieId from "@/store/atoms/movies/MovieId";
+// import MovieId from "@/store/atoms/movies/MovieId";
 import vidioState from "@/store/atoms/movies/Vidio";
 import axios from "axios";
 
-import { Plus, Volume2, VolumeX, X } from "lucide-react";
+import { Check, Plus, Volume2, VolumeX, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+
 import { FaPlay } from "react-icons/fa";
 import { PiColumnsFill } from "react-icons/pi";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import Gpt from "./chat/Gpt";
 
 function Drawer() {
+  const [isAdded, setisAdded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [movieId, setMovieId] = useState<number | undefined>();
+
   const [showGpt, SetShowGpt] = useState(true);
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("");
@@ -25,9 +28,7 @@ function Drawer() {
   const [overview, setOverview] = useState("");
   const setDrawerValue = useSetRecoilState(DrawerState);
   const MovieVidio = useRecoilValue(vidioState);
-  const vidioId = useRecoilState(MovieId);
-  const mediaType = Cardvalue[0].media_type;
-  const mediaId = Cardvalue[0].id;
+
   useEffect(() => {
     const res = Cardvalue[0];
 
@@ -45,7 +46,7 @@ function Drawer() {
   const handlePlayButtonClick = () => {
     setIsPlaying(!isPlaying);
   };
-  const apiKey = import.meta.env.VITE_TMDB_API;
+  // const apiKey = import.meta.env.VITE_TMDB_API;
   const handleMuteToggle = () => {
     setIsMuted(!isMuted);
   };
@@ -53,40 +54,103 @@ function Drawer() {
     MovieVidio[0]?.key
   }?autoplay=${isPlaying ? "1" : "0"}&mute=${isMuted ? "1" : "0"}`;
 
-  function AddtoList() {
-    axios
-      .post(
-        `https://api.themoviedb.org/3/account/${vidioId}/watchlist`,
-        {
-          media_type: mediaType,
-          media_id: mediaId,
-          watchlist: true,
-        },
-        {
-          params: {
-            api_key: apiKey,
-          },
-        }
-      )
-      .then((response) => {
-        toast.success("Item added to list successfully!", {
-          position: "bottom-center",
+  const id = localStorage.getItem("profileId");
+
+  const backdropPath = Cardvalue[0].backdrop_path;
+  const genreIds = Cardvalue[0].genre_ids;
+  const originalLanguage = Cardvalue[0].original_language;
+  const originalTitle = Cardvalue[0].original_title;
+  const popularity = Cardvalue[0].popularity;
+  const posterPath = Cardvalue[0].poster_path;
+  const releaseDate = new Date(Cardvalue[0].release_date);
+  const adult = Cardvalue[0].adult;
+
+  interface Movie {
+    id: number;
+    title: string;
+    backdropPath: string;
+    genreIds: number[];
+    originalLanguage: string;
+    originalTitle: string;
+    overview: string;
+    popularity: number;
+    posterPath: string;
+    releaseDate: string;
+    tmdbId: number | null;
+    adult: boolean;
+    profileId: number;
+  }
+
+  useEffect(() => {
+    const fetchUserMovies = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4242/getallmovies/${id}`
+        );
+        const userMovies: Movie[] = response.data.map((movieData: Movie) => {
+          return { ...movieData, id: movieData.id };
         });
-        console.log("Item added to watchlist successfully:", response.data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.error(
-            "Request failed with status code:",
-            error.response.status
+
+        const movieExists = userMovies.some(
+          (movie: Movie) => movie.title === title
+        );
+        setisAdded(movieExists);
+        if (movieExists) {
+          const existingMovie = userMovies.find(
+            (movie: Movie) => movie.title === title
           );
-          console.error("Error response data:", error.response.data);
-        } else if (error.request) {
-          console.error("No response received from server:", error.request);
-        } else {
-          console.error("Error setting up request:", error.message);
+          if (existingMovie) {
+            setMovieId(existingMovie.id);
+            console.log(existingMovie.id);
+          }
         }
-      });
+      } catch (error) {
+        console.log("Error fetching user movies:", error);
+      }
+    };
+
+    fetchUserMovies();
+  }, [id, title]);
+
+  const movieData = {
+    title,
+    backdropPath,
+    genreIds,
+    originalLanguage,
+    originalTitle,
+    overview,
+    popularity,
+    posterPath,
+    releaseDate,
+    adult,
+  };
+  async function AddtoList() {
+    try {
+      const response = await axios.post(
+        `http://localhost:4242/addmovies/${id}`,
+        movieData
+      );
+      console.log(response.data);
+      if (response.status >= 200 && response.status < 300) {
+        setisAdded(true);
+      }
+    } catch (error) {
+      console.log("unable to Add Movie", error);
+    }
+  }
+
+  async function RemovefromList() {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4242/deletemovie/${movieId}`
+      );
+      if (response.status >= 200 && response.status < 300) {
+        setisAdded(false);
+      }
+      console.log(response.data);
+    } catch (error) {
+      console.log("Unable to remove movie", error);
+    }
   }
 
   function handleToggle() {
@@ -163,7 +227,11 @@ function Drawer() {
                   aria-label="Add to My List"
                   data-state="closed"
                 >
-                  <Plus onClick={AddtoList} className=" " />
+                  {isAdded ? (
+                    <Check onClick={RemovefromList} />
+                  ) : (
+                    <Plus onClick={AddtoList} className=" " />
+                  )}
                 </button>
               </div>
               <button
