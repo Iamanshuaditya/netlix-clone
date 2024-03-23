@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { z, ZodError } from "zod";
 
@@ -61,6 +62,7 @@ function UpdatProfile() {
     getProfile();
   }, [decodedNumber]);
   async function updateProfile() {
+    const notify = () => toast("Profile Updated sucessfully ✅");
     const validatedData = profileSchema.parse({ name });
     setisLoading(true);
     try {
@@ -75,6 +77,7 @@ function UpdatProfile() {
       console.log(response.data);
 
       if (response.status >= 200 && response.status < 300) {
+        notify();
         window.location.href = "/manageprofile";
         setisLoading(false);
       } else {
@@ -94,6 +97,7 @@ function UpdatProfile() {
   }
 
   async function deleteProfile() {
+    const notify = () => toast("Profile deleted sucessfully ✅");
     setisLoadingDelete(true);
     try {
       const response = await axios.delete(
@@ -102,6 +106,7 @@ function UpdatProfile() {
       console.log(response.data);
 
       if (response.status >= 200 && response.status < 300) {
+        notify();
         window.location.href = "/manageprofile";
         setisLoading(false);
       } else {

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { z, ZodError } from "zod";
 
@@ -31,6 +32,8 @@ function AddProfile() {
   const userId = localStorage.getItem("userID");
 
   async function handleContinue() {
+    const notify = () => toast("Profile Created sucessfully ✅");
+    const failed = () => toast("Add Profile failed");
     setisLoading(true);
     try {
       const validatedData = profileSchema.parse({ name });
@@ -40,10 +43,13 @@ function AddProfile() {
         name: validatedData.name,
       });
       if (res.status >= 200 && res.status < 300) {
+        notify();
         window.location.href = "/manageprofile";
+
         setisLoading(false);
       } else {
-        console.error("Update profile failed.");
+        failed();
+        console.error("Add profile failed.");
       }
       console.log(res.data);
     } catch (error) {
@@ -118,6 +124,7 @@ function AddProfile() {
                   onChange={(e) => setName(e.target.value)}
                 />
               </fieldset>
+              <Toaster />
             </div>
             <div
               data-orientation="horizontal"

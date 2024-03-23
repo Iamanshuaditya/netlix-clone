@@ -12,6 +12,7 @@ import { PiColumnsFill } from "react-icons/pi";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import Gpt from "./chat/Gpt";
+import toast, { Toaster } from "react-hot-toast";
 
 function Drawer() {
   const [isAdded, setisAdded] = useState(false);
@@ -125,6 +126,7 @@ function Drawer() {
     adult,
   };
   async function AddtoList() {
+    const notify = () => toast("Added to List ✅");
     try {
       const response = await axios.post(
         `http://localhost:4242/addmovies/${id}`,
@@ -133,6 +135,7 @@ function Drawer() {
       console.log(response.data);
       if (response.status >= 200 && response.status < 300) {
         setisAdded(true);
+        notify();
       }
     } catch (error) {
       console.log("unable to Add Movie", error);
@@ -140,12 +143,14 @@ function Drawer() {
   }
 
   async function RemovefromList() {
+    const notify = () => toast("Removed from List!!✅");
     try {
       const response = await axios.delete(
         `http://localhost:4242/deletemovie/${movieId}`
       );
       if (response.status >= 200 && response.status < 300) {
         setisAdded(false);
+        notify();
       }
       console.log(response.data);
     } catch (error) {
@@ -283,6 +288,7 @@ function Drawer() {
                   <span className="text-slate-600  ">Genres:</span>
                   Science Fiction, Action, Adventure
                 </div>
+                <Toaster />
               </div>
             </div>
           ) : (
