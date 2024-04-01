@@ -20,7 +20,7 @@ function Footer() {
           <CiTwitter size={26} />
           <PiYoutubeLogoThin size={26} />
         </div>
-        <div className="text-[#a3a3a3]  grid w-[87em] justify-evenly text-sm  tab:w-[46em]  bigScreen:w-[18em] xl:w-[70em]">
+        <div className="text-[#a3a3a3]  grid w-[87em] justify-evenly text-sm  tab:w-[46em]  bigScreen:w-[91em] xl:w-[70em]">
           <ul className="grid xl:grid-cols-2 gap-3  xl:w-[100%] 2xl:grid-cols-3 grid-cols-4 xl:leading-[2.5em] 2xl:w-[87%] w-[65em] tab:grid-cols-3   fot">
             <li>
               <a href="#">Audio Description</a>
