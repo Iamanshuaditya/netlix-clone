@@ -24,6 +24,7 @@ function UpdatProfile() {
   if (decodedNumber) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const object = JSON.parse(decodedNumber);
+    console.log(object);
   }
 
   const Loading = () => {
