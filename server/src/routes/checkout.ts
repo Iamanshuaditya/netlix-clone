@@ -4,7 +4,7 @@ const stripe = require("stripe")(
 const express = require("express");
 const router = express.Router();
 import { Request, Response } from "express";
-const YOUR_DOMAIN = "http://localhost:5173/";
+const YOUR_DOMAIN = "https://netlix-web.vercel.app/";
 
 router.post("/create-checkout-session", async (req: Request, res: Response) => {
   try {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { z, ZodError } from "zod";
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const profileSchema = z.object({
   name: z.string().max(20).min(2),
@@ -37,7 +38,7 @@ function AddProfile() {
     setisLoading(true);
     try {
       const validatedData = profileSchema.parse({ name });
-      const res = await axios.post("http://localhost:4242/addprofile", {
+      const res = await axios.post(`${backendBaseUrl}/addprofile`, {
         avatar: selectedImage,
         userId: userId ? parseInt(userId) : null,
         name: validatedData.name,

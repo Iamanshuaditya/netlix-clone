@@ -4,6 +4,7 @@ import { PencilIcon, PlusCircle } from "lucide-react";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const Profile: React.FC = () => {
   const [profile, Setprofile] = useState([]);
@@ -25,7 +26,7 @@ const Profile: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4242/getallprofiles/${UserId}`
+          `${backendBaseUrl}/getallprofiles/${UserId}`
         );
         console.log(response.data);
         Setprofile(response.data);

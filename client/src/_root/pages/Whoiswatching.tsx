@@ -2,6 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 function Whoiswatching() {
   const UserId = localStorage.getItem("UserId");
@@ -62,7 +63,7 @@ function Whoiswatching() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4242/getallprofiles/${UserId}`
+          `${backendBaseUrl}/getallprofiles/${UserId}`
         );
 
         Setprofile(response.data);

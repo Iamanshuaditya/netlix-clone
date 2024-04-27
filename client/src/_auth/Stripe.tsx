@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 function ProductDisplay() {
   return <section></section>;
 }
@@ -12,7 +12,7 @@ const SuccessDisplay = ({ sessionId }: { sessionId: string }) => {
           <h3>Subscription to starter plan successful!</h3>
         </div>
       </div>
-      <form action="http://localhost:4242/create-portal-session" method="POST">
+      <form action={`${backendBaseUrl}/create-portal-session`} method="POST">
         <input
           type="hidden"
           id="session-id"

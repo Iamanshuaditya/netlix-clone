@@ -3,14 +3,12 @@ import { DrawerState } from "@/store/atoms/Drawer";
 // import MovieId from "@/store/atoms/movies/MovieId";
 import vidioState from "@/store/atoms/movies/Vidio";
 import axios from "axios";
-
 import { Check, Plus, Volume2, VolumeX, X } from "lucide-react";
 import { useEffect, useState } from "react";
-
 import { FaPlay } from "react-icons/fa";
 import { PiColumnsFill } from "react-icons/pi";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 import Gpt from "./chat/Gpt";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -18,7 +16,6 @@ function Drawer() {
   const [isAdded, setisAdded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [movieId, setMovieId] = useState<number | undefined>();
-
   const [showGpt, SetShowGpt] = useState(true);
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("");
@@ -86,7 +83,7 @@ function Drawer() {
     const fetchUserMovies = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4242/getallmovies/${id}`
+          `${backendBaseUrl}/getallmovies/${id}`
         );
         const userMovies: Movie[] = response.data.map((movieData: Movie) => {
           return { ...movieData, id: movieData.id };
@@ -129,7 +126,7 @@ function Drawer() {
     const notify = () => toast("Added to List ✅");
     try {
       const response = await axios.post(
-        `http://localhost:4242/addmovies/${id}`,
+        `${backendBaseUrl}/addmovies/${id}`,
         movieData
       );
       console.log(response.data);
@@ -146,7 +143,7 @@ function Drawer() {
     const notify = () => toast("Removed from List!!✅");
     try {
       const response = await axios.delete(
-        `http://localhost:4242/deletemovie/${movieId}`
+        `${backendBaseUrl}/deletemovie/${movieId}`
       );
       if (response.status >= 200 && response.status < 300) {
         setisAdded(false);

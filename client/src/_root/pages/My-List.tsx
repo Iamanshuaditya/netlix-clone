@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ListCard from "@/components/ListCard";
 import { Skeleton } from "@/components/ui/skeleton";
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 function MyList() {
   const isDrawerOpen = useRecoilValue(DrawerState);
@@ -21,12 +22,10 @@ function MyList() {
     if (profileId) {
       // Only fetch movies if profileId exists
       try {
-        axios
-          .get(`http://localhost:4242/getallmovies/${profileId}`)
-          .then((res) => {
-            setMovies(res.data);
-            setIsLoading(false); // Set isLoading to false after fetching data
-          });
+        axios.get(`${backendBaseUrl}/getallmovies/${profileId}`).then((res) => {
+          setMovies(res.data);
+          setIsLoading(false); // Set isLoading to false after fetching data
+        });
       } catch (error) {
         console.log("unable to get movies");
         setIsLoading(false); // Ensure isLoading is set to false in case of error

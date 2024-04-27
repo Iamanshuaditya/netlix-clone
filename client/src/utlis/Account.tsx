@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 interface AccountDetailsProps {
   onPlanChange: (newplan: string) => void;
 }
@@ -14,7 +14,7 @@ function AccountDetails({ onPlanChange }: AccountDetailsProps) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4242/customer/subscriptions?email=${email}`)
+      .get(`${backendBaseUrl}/customer/subscriptions?email=${email}`)
       .then((response) => {
         const subscriptions = response.data.subscriptions;
         if (subscriptions.length > 0) {

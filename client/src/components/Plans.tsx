@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { auth } from "../firebase/FirebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 function Plans() {
   const [user] = useAuthState(auth);
@@ -32,7 +33,7 @@ function Plans() {
       console.log(token);
       try {
         const response = await fetch(
-          "http://localhost:4242/check-subscription-status",
+          `${backendBaseUrl}/check-subscription-status`,
           {
             method: "GET",
             headers: {
@@ -69,7 +70,7 @@ function Plans() {
     const createCheckoutSession = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4242/create-checkout-session",
+          `${backendBaseUrl}/create-checkout-session`,
           {
             method: "POST",
             headers: {
@@ -250,7 +251,7 @@ function Plans() {
         </div>
         <div className="mt-10 grid w-full place-items-center">
           <form
-            action="http://localhost:4242/create-checkout-session"
+            action={`${backendBaseUrl}/create-checkout-session`}
             method="POST"
           >
             <input

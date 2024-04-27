@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { z, ZodError } from "zod";
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const profileSchema = z.object({
   name: z.string().max(20).min(2),
@@ -50,7 +51,7 @@ function UpdatProfile() {
     async function getProfile() {
       try {
         const response = await axios.get(
-          `http://localhost:4242/getprofile/${decodedNumber}`
+          `${backendBaseUrl}/getprofile/${decodedNumber}`
         );
         const data: Profile = response.data;
         setName(data.name);
@@ -72,7 +73,7 @@ function UpdatProfile() {
         avatar: selectedImg,
       };
       const response = await axios.post(
-        `http://localhost:4242/updateprofile/${decodedNumber}`,
+        `${backendBaseUrl}/updateprofile/${decodedNumber}`,
         requestBody
       );
       console.log(response.data);
@@ -102,7 +103,7 @@ function UpdatProfile() {
     setisLoadingDelete(true);
     try {
       const response = await axios.delete(
-        `http://localhost:4242/deleteProfile/${decodedNumber}`
+        `${backendBaseUrl}/deleteProfile/${decodedNumber}`
       );
       console.log(response.data);
 

@@ -4,6 +4,7 @@ import axios from "axios";
 import { ChevronDown, ChevronRight, ChevronUp, CreditCard } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 function Account() {
   const [plan, setPlan] = useState("");
@@ -24,7 +25,7 @@ function Account() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4242/getallprofiles/${UserId}`
+          `${backendBaseUrl}/getallprofiles/${UserId}`
         );
 
         setProfiles(response.data);

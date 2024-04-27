@@ -1,7 +1,7 @@
 const express = require("express");
 import { Request, Response } from "express";
 const router = express.Router();
-const YOUR_DOMAIN = "http://localhost:5173/";  
+const YOUR_DOMAIN = "https://netlix-web.vercel.app/";  
 import {stripe}  from "./checkout";
 
 

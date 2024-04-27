@@ -12,6 +12,7 @@ import axios from "axios";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Skeleton } from "@/components/ui/skeleton";
+const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
 
 function Home() {
   const isDrawerOpen = useRecoilValue(DrawerState);
@@ -64,7 +65,7 @@ function Home() {
     if (email !== null && email !== undefined) {
       const checkuser = async () => {
         await axios
-          .post("http://localhost:4242/checkuser", { email: email })
+          .post(`${backendBaseUrl}/checkuser`, { email: email })
           .then((res) => {
             console.log(res);
             if (res.data[0].email) {
@@ -86,7 +87,7 @@ function Home() {
         if (!checkEmail) {
           if (name) {
             axios
-              .post("http://localhost:4242/createuser", {
+              .post(`${backendBaseUrl}/createuser`, {
                 email: email,
                 name: name,
               })
